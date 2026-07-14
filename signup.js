@@ -2,7 +2,10 @@ import { Redis } from '@upstash/redis';
 import bcrypt from 'bcryptjs';
 import { randomUUID } from 'crypto';
 
-const redis = Redis.fromEnv();
+const redis = new Redis({
+  url: process.env.KV_REST_API_URL,
+  token: process.env.KV_REST_API_TOKEN,
+});
 const SESSION_TTL_SECONDS = 60 * 60 * 24 * 90; // 90 hari
 
 export default async function handler(req, res) {
