@@ -4,25 +4,6 @@ Situs satu halaman: bootcamp 7 hari untuk melek hiragana/katakana, plus peta jal
 menuju target ganda JLPT N5 dan N4. Ada sistem akun supaya progresmu tersimpan dan bisa
 dibuka dari perangkat lain.
 
-## Kenapa bukan Edge Config?
-
-Sempat diminta pakai Edge Config sebagai "database akun" — setelah dicek, itu bukan alat
-yang cocok untuk kasus ini, dan saya tidak mau memasangnya lalu diam-diam gagal nanti.
-Tiga alasannya:
-
-1. **Edge Config dirancang untuk data yang jarang ditulis, sering dibaca** — cocok untuk
-   feature flag atau aturan routing, bukan progres belajar yang berubah tiap kali kamu
-   menekan satu tombol cap.
-2. **Batas ukuran total hanya 64KB** untuk seluruh Edge Config, dan setiap perubahan butuh
-   sekitar 10 detik untuk menyebar ke semua region — akun dengan banyak pengguna akan
-   cepat mentok.
-3. Dokumentasi Vercel sendiri secara eksplisit bilang: *"Do not store sensitive information
-   or user-specific data in Edge Config"* — data per-pengguna memang bukan peruntukannya.
-
-**Yang dipakai sebagai gantinya: Upstash Redis**, database key-value sungguhan yang
-tersedia lewat Vercel Marketplace, dirancang untuk baca/tulis cepat dan sering — pas untuk
-akun + histori progres. Cara pasangnya di bawah, dan prosesnya sama mudahnya dengan Edge
-Config.
 
 ## Struktur proyek
 
