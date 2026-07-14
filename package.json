@@ -1,0 +1,10 @@
+{
+  "name": "hari-pertama-kana",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Jalur 6 bulan menuju JLPT N5 dan N4 — dimulai dari bootcamp kana 7 hari.",
+  "dependencies": {
+    "@upstash/redis": "^1.34.0",
+    "bcryptjs": "^2.4.3"
+  }
+}
