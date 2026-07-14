@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Day One Kana — 7-Day Start to N5 / N4</title>
+<meta name="description" content="A 7-day kana literacy bootcamp that opens a 6-month path to JLPT N5 and N4.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;800&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sumi:#1C1B1A;
+    --washi:#E8E2D0;
+    --paper:#F3EFE2;
+    --aizome:#1F3A5F;
+    --aizome-deep:#152A47;
+    --shu:#C33D2E;
+    --moss:#5C6B47;
+    --muted:#6B6459;
+    --line: rgba(28,27,26,0.14);
+    --card: #FBF9F2;
+    --radius: 2px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--washi);
+    color:var(--sumi);
+    font-family:'Noto Sans JP', sans-serif;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.disp{ font-family:'Shippori Mincho', serif; font-weight:700; letter-spacing:0.01em; }
+  .mono{ font-family:'JetBrains Mono', monospace; }
+  a{ color:var(--aizome); }
+  img{max-width:100%;}
+
+  /* subtle paper texture */
+  body::before{
+    content:"";
+    position:fixed; inset:0;
+    background-image:
+      radial-gradient(rgba(28,27,26,0.035) 1px, transparent 1px);
+    background-size:3px 3px;
+    pointer-events:none;
+    z-index:0;
+  }
+
+  .wrap{ max-width:920px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    padding:88px 0 56px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+  }
+  .eyebrow{
+    font-family:'JetBrains Mono', monospace;
+    font-size:12.5px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--aizome);
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:22px;
+  }
+  .eyebrow .kana-drift{
+    font-family:'Noto Sans JP', sans-serif;
+    color:var(--muted);
+    font-size:13px;
+    letter-spacing:0.05em;
+  }
+  h1.title{
+    font-size:clamp(34px, 5vw, 54px);
+    line-height:1.12;
+    margin:0 0 20px;
+    max-width:14ch;
+  }
+  h1.title .glyph{
+    color:var(--shu);
+    font-weight:800;
+  }
+  .hero-sub{
+    font-size:17px;
+    color:#3a362f;
+    max-width:56ch;
+    margin:0 0 30px;
+  }
+  .hero-facts{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:1px;
+    background:var(--line);
+    border:1px solid var(--line);
+    max-width:560px;
+  }
+  .hero-fact{
+    background:var(--paper);
+    padding:14px 16px;
+  }
+  .hero-fact .n{ font-family:'JetBrains Mono',monospace; font-size:22px; font-weight:700; color:var(--aizome-deep); }
+  .hero-fact .l{ font-size:11.5px; text-transform:uppercase; letter-spacing:0.08em; color:var(--muted); margin-top:2px; }
+
+  /* ---------- HONEST NOTE ---------- */
+  .note{
+    margin:40px 0 0;
+    padding:16px 18px;
+    border-left:3px solid var(--shu);
+    background:rgba(195,61,46,0.06);
+    font-size:14.5px;
+    max-width:66ch;
+  }
+  .note b{ color:var(--shu); }
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{ padding:64px 0; border-bottom:1px solid var(--line); }
+  .section-head{ margin-bottom:36px; }
+  .section-head .eyebrow{ margin-bottom:10px; }
+  .section-head h2{ font-size:clamp(24px,3vw,32px); margin:0 0 10px; }
+  .section-head p{ color:var(--muted); max-width:60ch; margin:0; font-size:15px; }
+
+  /* ---------- PROGRESS STRIP ---------- */
+  .kana-progress{
+    display:flex; gap:6px; flex-wrap:wrap; margin:28px 0 0;
+    padding:16px; background:var(--card); border:1px solid var(--line);
+  }
+  .kana-progress .kchar{
+    width:30px; height:30px; display:flex; align-items:center; justify-content:center;
+    font-family:'Noto Sans JP', sans-serif; font-size:15px;
+    background:var(--washi); color:var(--muted); border:1px solid var(--line);
+    transition: all .25s ease;
+  }
+  .kana-progress .kchar.on{
+    background:var(--aizome); color:#fff; border-color:var(--aizome);
+  }
+  .progress-label{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); margin-top:10px; }
+
+  /* ---------- DAY CARDS ---------- */
+  .day-card{
+    background:var(--card);
+    border:1px solid var(--line);
+    margin-bottom:20px;
+    position:relative;
+    overflow:hidden;
+  }
+  .day-head{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:20px 22px;
+    border-bottom:1px solid var(--line);
+    gap:16px;
+  }
+  .day-id{ display:flex; align-items:center; gap:14px; }
+  .day-num{
+    font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted);
+    letter-spacing:0.08em;
+  }
+  .day-head h3{ margin:0; font-size:20px; }
+  .day-scope{ font-size:13px; color:var(--muted); margin-top:3px; font-family:'JetBrains Mono',monospace; }
+
+  .stamp-btn{
+    width:56px; height:56px; border-radius:50%;
+    border:2px solid var(--shu);
+    background:transparent;
+    color:var(--shu);
+    font-family:'Shippori Mincho', serif;
+    font-size:12px; font-weight:700;
+    cursor:pointer;
+    flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+    transition: all .2s ease;
+    position:relative;
+  }
+  .stamp-btn:hover{ background:rgba(195,61,46,0.08); }
+  .stamp-btn.done{
+    background:var(--shu); color:#fff; border-color:var(--shu);
+    transform:rotate(-8deg) scale(1.03);
+  }
+  .stamp-btn.done::after{
+    content:"✓";
+    font-family:'Noto Sans JP',sans-serif;
+    font-size:22px;
+  }
+  .stamp-btn:not(.done)::after{ content:"印"; font-family:'Noto Sans JP',sans-serif; font-size:18px; }
+
+  .day-body{ padding:22px; display:grid; gap:18px; }
+  .day-block .k{
+    font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase;
+    letter-spacing:0.1em; color:var(--aizome); margin-bottom:6px; display:block;
+  }
+  .day-block.avoid .k{ color:var(--shu); }
+  .day-block.criterion .k{ color:var(--moss); }
+  .day-block p{ margin:0; font-size:15px; }
+  .day-block ul{ margin:6px 0 0; padding-left:18px; font-size:15px; }
+  .day-block li{ margin-bottom:4px; }
+
+  .time-chip{
+    display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11.5px;
+    background:var(--aizome); color:#fff; padding:3px 9px; border-radius:20px;
+  }
+
+  .resources{ display:flex; flex-wrap:wrap; gap:8px; margin-top:2px; }
+  .resources a{
+    font-family:'JetBrains Mono',monospace; font-size:12px;
+    text-decoration:none; color:var(--aizome-deep);
+    border:1px solid var(--line); padding:4px 10px;
+    background:var(--washi);
+    transition: all .15s ease;
+  }
+  .resources a:hover{ border-color:var(--aizome); background:#fff; }
+
+  /* ---------- ROADMAP ---------- */
+  .phases{ position:relative; padding-left:26px; margin-top:30px; }
+  .phases::before{ content:""; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background:var(--line); }
+  .phase{ position:relative; margin-bottom:32px; }
+  .phase::before{
+    content:""; position:absolute; left:-26px; top:4px; width:11px; height:11px;
+    background:var(--aizome); border-radius:50%; border:2px solid var(--washi);
+  }
+  .phase .p-when{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--aizome); text-transform:uppercase; letter-spacing:0.08em; }
+  .phase h4{ margin:6px 0 6px; font-size:19px; font-family:'Shippori Mincho',serif; }
+  .phase p{ margin:0; color:#3a362f; font-size:14.5px; max-width:62ch; }
+  .phase .target{
+    display:inline-block; margin-top:8px; font-family:'JetBrains Mono',monospace;
+    font-size:11.5px; background:rgba(92,107,71,0.14); color:var(--moss); padding:3px 9px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{ padding:48px 0 80px; }
+  footer h3{ font-size:18px; margin-bottom:14px; }
+  .link-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px 24px; margin-bottom:36px;}
+  .link-grid a{ font-size:14px; text-decoration:none; display:flex; justify-content:space-between; border-bottom:1px dotted var(--line); padding-bottom:6px;}
+  .link-grid a span{ color:var(--muted); font-family:'JetBrains Mono',monospace; font-size:12px; }
+  .reset-row{ display:flex; align-items:center; gap:14px; font-size:13px; color:var(--muted); }
+  .reset-row button{
+    font-family:'JetBrains Mono',monospace; font-size:12px; background:none;
+    border:1px solid var(--line); padding:6px 12px; cursor:pointer; color:var(--sumi);
+  }
+  .reset-row button:hover{ border-color:var(--shu); color:var(--shu); }
+
+  @media (max-width:640px){
+    header.hero{ padding:60px 0 40px; }
+    .hero-facts{ grid-template-columns:1fr 1fr; }
+    .link-grid{ grid-template-columns:1fr; }
+    .day-head{ flex-wrap:wrap; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <header class="hero">
+    <div class="eyebrow">7-day bootcamp <span class="kana-drift">→ 6-month path to N5 · N4</span></div>
+    <h1 class="title">You can't read a single letter yet. <span class="glyph">That changes this week.</span></h1>
+    <p class="hero-sub">You already hear some Japanese — anime gave you an ear for it. What's missing is the alphabet: hiragana and katakana. This week installs that, one 45-minute session a day, with a pass/fail check every night so you always know if it worked.</p>
+    <div class="hero-facts">
+      <div class="hero-fact"><div class="n">92</div><div class="l">kana to learn</div></div>
+      <div class="hero-fact"><div class="n">45m</div><div class="l">per day, no more</div></div>
+      <div class="hero-fact"><div class="n">6mo</div><div class="l">to N5 → N4</div></div>
+    </div>
+    <div class="note"><b>Honest math:</b> this 7-day sprint only builds your reading alphabet — the floor everything else stands on. N5 needs roughly 100–150 study hours; N4 needs another 150–250 on top. At 45 min/day that's ~230 hours in 6 months, which covers N5 comfortably but makes N4 tight. The roadmap below tells you exactly where the daily time has to grow, and when.</div>
+  </header>
+
+  <section id="progress-section">
+    <div class="section-head">
+      <div class="eyebrow">Live tracker</div>
+      <h2>Your kana, unlocking</h2>
+      <p>Stamp a day complete and its characters light up here. This is stored only in your browser — nothing is sent anywhere.</p>
+    </div>
+    <div class="kana-progress" id="kanaProgress"></div>
+    <div class="progress-label" id="progressLabel">0 / 92 kana unlocked</div>
+  </section>
+
+  <section id="days">
+    <div class="section-head">
+      <div class="eyebrow">The 7 days</div>
+      <h2>One task a day. No detours.</h2>
+      <p>Do the task, run the check at the end, stamp it only if you pass. If you fail the check, repeat the same day tomorrow instead of moving on — a shaky alphabet breaks everything built on top of it later.</p>
+    </div>
+    <div id="dayList"></div>
+  </section>
+
+  <section id="roadmap">
+    <div class="section-head">
+      <div class="eyebrow">Beyond day 7</div>
+      <h2>Where this week actually leads</h2>
+      <p>The kana you learn this week is the entry ticket. Here's the full 6-month route from that ticket to sitting N5, then N4.</p>
+    </div>
+    <div class="phases" id="phaseList"></div>
+  </section>
+
+  <footer>
+    <h3>Tools used this week</h3>
+    <div class="link-grid" id="linkGrid"></div>
+    <div class="reset-row">
+      <span id="resetLabel">Started fresh? Clear your stamps and start over.</span>
+      <button id="resetBtn">Reset progress</button>
+    </div>
+  </footer>
+
+</div>
+
+<script>
+/* ---------------- DATA ---------------- */
+
+const HIRAGANA_BASE = "あいうえお かきくけこ さしすせそ たちつてと なにぬねの はひふへほ まみむめも やゆよ らりるれろ わをん".replace(/ /g,"").split("");
+const HIRAGANA_MOD = "がぎぐげご ざじずぜぞ だぢづでど ばびぶべぼ ぱぴぷぺぽ きゃきゅきょ しゃしゅしょ ちゃちゅちょ にゃにゅにょ ひゃひゅひょ みゃみゅみょ りゃりゅりょ".replace(/ /g,"").split("");
+const KATAKANA_ALL = "アイウエオ カキクケコ サシスセソ タチツテト ナニヌネノ ハヒフヘホ マミムメモ ヤユヨ ラリルレロ ワヲン ガギグゲゴ ザジズゼゾ ダヂヅデド バビブベボ パピプペポ".replace(/ /g,"").split("");
+
+const DAYS = [
+  {
+    n: 1, title: "Hiragana, first 15", scope: "あ-そ  (vowels · k-row · s-row)",
+    time: "45 min",
+    task: "Open a hiragana drill tool set to only the vowel row + か-row + さ-row (15 characters: あいうえお かきくけこ さしすせそ). Run timed rounds of 20 questions, romaji-to-kana or kana-to-romaji recall. Do not read a chart passively — every rep must be a guess-then-check.",
+    criterion: "Score 90%+ on three consecutive 20-question rounds covering all 15 characters, no chart open while you answer.",
+    avoid: [
+      "Don't try to learn all 46 base hiragana today — 15 done solidly beats 46 done shakily.",
+      "Don't touch katakana or vocab yet.",
+      "Don't just copy characters by hand as your only method — that builds recognition of your own handwriting, not the printed form."
+    ],
+    unlocks: HIRAGANA_BASE.slice(0,15),
+    links: [ {t:"Real Kana drill", u:"https://realkana.com/"}, {t:"Tofugu hiragana guide", u:"https://www.tofugu.com/japanese/learn-hiragana/"} ]
+  },
+  {
+    n: 2, title: "Hiragana, next 15", scope: "た-ほ  (t-row · n-row · h-row) + review",
+    time: "45 min",
+    task: "Add た-row, な-row, は-row (たちつてと なにぬねの はひふへほ) to your drill pool. Spend the first 10 minutes on yesterday's 15 mixed in, then 35 minutes on all 30 combined.",
+    criterion: "90%+ across three rounds that mix all 30 characters learned so far (not just today's new ones).",
+    avoid: [
+      "Don't drill only today's new characters — isolated new-only practice is why yesterday's set gets forgotten by Friday.",
+      "Don't start katakana.",
+      "Don't slow down to handwrite every character — recognition speed matters more than stroke order at this stage."
+    ],
+    unlocks: HIRAGANA_BASE.slice(15,30),
+    links: [ {t:"Real Kana drill", u:"https://realkana.com/"} ]
+  },
+  {
+    n: 3, title: "Hiragana, final 16", scope: "ま-ん  (m·y·r·w-rows, ん) — full base set",
+    time: "45 min",
+    task: "Add the remaining base hiragana (まみむめも やゆよ らりるれろ わをん — 16 characters, note や/ゆ/よ and わ/を only have 3 and 2 sounds respectively). Drill the complete 46-character base set.",
+    criterion: "90%+ accuracy on the full 46-character base set, three rounds in a row, averaging under 20 seconds per character.",
+    avoid: [
+      "Don't start dakuten (が, ざ, etc.) or combo characters (きゃ) yet — base set first.",
+      "Don't get stuck perfecting り/る or ぬ/め look-alikes — flag them mentally and let extra reps fix it, don't stop to analyze stroke shapes.",
+      "Don't open katakana today, even out of curiosity — one alphabet at a time this week."
+    ],
+    unlocks: HIRAGANA_BASE.slice(30,46),
+    links: [ {t:"Real Kana drill", u:"https://realkana.com/"} ]
+  },
+  {
+    n: 4, title: "Hiragana, modified sounds", scope: "が/ざ/だ/ば/ぱ + きゃ-type combos",
+    time: "45 min",
+    task: "Drill the dakuten set (が, ざ, だ, ば), handakuten set (ぱ), and yōon combinations (きゃ, しゃ, ちゃ, etc.) — these reuse sounds you already know, just modified. Mix them into your existing full base-set pool.",
+    criterion: "90%+ on a round that mixes base + modified characters together, three rounds straight.",
+    avoid: [
+      "Don't start katakana today — finish hiragana to full mastery first, since half-known hiragana makes katakana confusing (many shapes rhyme across the two systems).",
+      "Don't memorize these as new symbols — treat が as 'か + buzz', not a fresh character. That reframing is the whole shortcut.",
+      "Don't skip the yōon combos to save time — they show up constantly in real words (きゃ = kya, as in 客 kyaku)."
+    ],
+    unlocks: HIRAGANA_MOD,
+    links: [ {t:"Real Kana drill", u:"https://realkana.com/"}, {t:"Tofugu dakuten explainer", u:"https://www.tofugu.com/japanese/learn-hiragana/"} ]
+  },
+  {
+    n: 5, title: "Katakana, first pass", scope: "Full katakana set — recognition only",
+    time: "45 min",
+    task: "Katakana shares the same 46+modified sounds as hiragana, just different shapes — so this is matching new shapes to sounds you already own, not learning sounds from scratch. Drill the full katakana set with a lower bar today.",
+    criterion: "80%+ accuracy on a 30-question katakana quiz (first-exposure bar, not full mastery yet).",
+    avoid: [
+      "Don't expect Day 5 to make katakana permanent — that's what Day 6 is for. Trying to force 100% today wastes time you don't have.",
+      "Don't rush past the classic mix-ups — spend deliberate extra reps on シ vs ツ and ソ vs ン, the four most commonly confused characters.",
+      "Don't start grammar or vocab study yet."
+    ],
+    unlocks: KATAKANA_ALL.slice(0,35),
+    links: [ {t:"Real Kana drill (katakana mode)", u:"https://realkana.com/"} ]
+  },
+  {
+    n: 6, title: "Katakana, mastery + set up your review system", scope: "Full katakana to 90%+ · install Anki",
+    time: "45 min",
+    task: "First 25 minutes: drill katakana (all characters, including remaining ones) until it's solid. Last 20 minutes: install Anki (desktop or mobile), import a ready-made 'Kana + Core N5 vocab' deck, and run your first 20-card review session so the habit is live before day 7.",
+    criterion: "90%+ across three katakana-only rounds, AND Anki installed with a deck loaded and one completed session logged.",
+    avoid: [
+      "Don't build your own flashcard deck from scratch today — importing a proven deck saves hours you need for kana practice.",
+      "Don't start new grammar content — Anki setup is the only 'new' thing added today.",
+      "Don't skip Anki because kana feels done — this is the system that will carry you through the next 6 months, so day 6 is when it has to start."
+    ],
+    unlocks: KATAKANA_ALL.slice(35),
+    links: [ {t:"Anki (free, all platforms)", u:"https://apps.ankiweb.net/"}, {t:"AnkiWeb shared decks", u:"https://ankiweb.net/shared/decks/"} ]
+  },
+  {
+    n: 7, title: "Full kana test + lock in the next 6 months", scope: "92/92 mixed test · roadmap planning",
+    time: "45 min",
+    task: "First 25 minutes: take one comprehensive, timed, mixed hiragana+katakana test (both directions, all 92 characters, dakuten/combos included). Review every miss immediately. Last 20 minutes: block out recurring calendar slots for the next 6 months using the roadmap below, and pick your Phase 2 grammar resource now so day 8 has zero setup friction.",
+    criterion: "90%+ on the full 92-character mixed test, under 3 seconds average per character, AND a calendar with study slots booked through month 6.",
+    avoid: [
+      "Don't start kanji or heavy grammar today — that's phase 2, starting tomorrow with a clean slate.",
+      "Don't skip the calendar-blocking step to 'save time' — this is the step that actually determines whether month 2 happens.",
+      "Don't aim for 100% — 90%+ with occasional half-second hesitation is a normal, workable finish line for week one."
+    ],
+    unlocks: [],
+    links: [ {t:"Real Kana (full mixed mode)", u:"https://realkana.com/"} ]
+  }
+];
+
+const PHASES = [
+  { when:"Week 1", title:"Kana literacy (this site)", desc:"Hiragana + katakana to 90%+ recognition. Nothing else. This is the floor everything below stands on.", target:"92/92 kana" },
+  { when:"Weeks 2–9  ·  Month 1–2", title:"N5 grammar + core vocabulary", desc:"Work through a full beginner grammar course (Tae Kim's guide or Genki-based) alongside the N5 tier of your Anki deck. Add 10–15 new vocab cards/day, review daily without exception. Start reading graded N5 sentences as soon as basic particles (は, を, が, に, で) click.", target:"~800 vocab · full N5 grammar" },
+  { when:"Weeks 10–13  ·  Month 3", title:"N5 mock exams", desc:"Switch weekly to timed, full-length N5 practice tests (vocabulary, grammar, reading, listening). Log every wrong answer back into Anki as its own card so mistakes don't repeat.", target:"Consistent N5 pass-line scores" },
+  { when:"Month 4", title:"Bridge to N4 grammar", desc:"This is where 45 min/day starts being the bottleneck — plan to extend to 60–75 min/day here if the goal is a real N4, not just exposure. Begin N4 grammar points and expand vocab pace to 15–20 cards/day.", target:"N4 grammar ~50% covered" },
+  { when:"Month 5", title:"N4 vocabulary + kanji push", desc:"N4 leans harder on kanji reading than N5 does. Add a dedicated 20-min kanji-reading block (not just meaning — actual reading in context) on top of your existing Anki habit.", target:"~1500 vocab · ~200 kanji" },
+  { when:"Month 6", title:"N4 mock exams + exam-day drill", desc:"Full timed N4 practice tests weekly, mirror real exam timing and format exactly, review every miss same-day. Final two weeks: light review only, protect sleep and consistency over cramming new material.", target:"Exam-ready for N4" }
+];
+
+const RESOURCES = [
+  {t:"Real Kana — kana drilling", u:"https://realkana.com/"},
+  {t:"Tofugu — hiragana/katakana guides", u:"https://www.tofugu.com/japanese/learn-hiragana/"},
+  {t:"Anki — spaced repetition app", u:"https://apps.ankiweb.net/"},
+  {t:"Tae Kim's Guide to Japanese Grammar", u:"https://guidetojapanese.org/"},
+  {t:"Jisho — dictionary", u:"https://jisho.org/"},
+  {t:"Bunpro — grammar SRS, N5/N4 tracks", u:"https://bunpro.jp/"},
+  {t:"JLPT Sensei — practice tests & lists", u:"https://jlptsensei.com/"},
+  {t:"Official JLPT site", u:"https://www.jlpt.jp/e/"}
+];
+
+/* ---------------- STATE ---------------- */
+const STORAGE_KEY = "kana-bootcamp-progress";
+function loadState(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ return {}; } }
+function saveState(s){ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
+let state = loadState();
+
+/* ---------------- RENDER ---------------- */
+function renderKanaProgress(){
+  const el = document.getElementById('kanaProgress');
+  const all = [...HIRAGANA_BASE, ...HIRAGANA_MOD, ...KATAKANA_ALL];
+  let unlocked = new Set();
+  DAYS.forEach(d => { if(state[d.n]) d.unlocks.forEach(c => unlocked.add(c)); });
+  el.innerHTML = all.map(c => `<div class="kchar ${unlocked.has(c)?'on':''}">${c}</div>`).join('');
+  document.getElementById('progressLabel').textContent = `${unlocked.size} / ${all.length} kana unlocked`;
+}
+
+function renderDays(){
+  const el = document.getElementById('dayList');
+  el.innerHTML = DAYS.map(d => `
+    <div class="day-card" id="day-${d.n}">
+      <div class="day-head">
+        <div class="day-id">
+          <div>
+            <div class="day-num">DAY ${d.n} / 7</div>
+            <h3>${d.title}</h3>
+            <div class="day-scope">${d.scope}</div>
+          </div>
+        </div>
+        <button class="stamp-btn ${state[d.n] ? 'done' : ''}" data-day="${d.n}" aria-label="Mark day ${d.n} complete"></button>
+      </div>
+      <div class="day-body">
+        <div><span class="time-chip">${d.time}</span></div>
+        <div class="day-block task">
+          <span class="k">Task</span>
+          <p>${d.task}</p>
+        </div>
+        <div class="day-block criterion">
+          <span class="k">You did it correctly if</span>
+          <p>${d.criterion}</p>
+        </div>
+        <div class="day-block avoid">
+          <span class="k">Don't, today</span>
+          <ul>${d.avoid.map(a => `<li>${a}</li>`).join('')}</ul>
+        </div>
+        <div class="day-block">
+          <span class="k">Use</span>
+          <div class="resources">${d.links.map(l => `<a href="${l.u}" target="_blank" rel="noopener">${l.t} ↗</a>`).join('')}</div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+
+  el.querySelectorAll('.stamp-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const day = btn.dataset.day;
+      state[day] = !state[day];
+      saveState(state);
+      btn.classList.toggle('done');
+      renderKanaProgress();
+    });
+  });
+}
+
+function renderPhases(){
+  document.getElementById('phaseList').innerHTML = PHASES.map(p => `
+    <div class="phase">
+      <div class="p-when">${p.when}</div>
+      <h4>${p.title}</h4>
+      <p>${p.desc}</p>
+      <div class="target">${p.target}</div>
+    </div>
+  `).join('');
+}
+
+function renderLinks(){
+  document.getElementById('linkGrid').innerHTML = RESOURCES.map(r => `
+    <a href="${r.u}" target="_blank" rel="noopener">${r.t} <span>↗</span></a>
+  `).join('');
+}
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  if(confirm('Clear all stamped days and reset kana progress?')){
+    state = {};
+    saveState(state);
+    renderDays();
+    renderKanaProgress();
+  }
+});
+
+renderKanaProgress();
+renderDays();
+renderPhases();
+renderLinks();
+</script>
+</body>
+</html>
