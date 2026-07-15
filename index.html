@@ -4,117 +4,66 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hari Pertama Kana — Jalur 6 Bulan ke N5 & N4</title>
-<meta name="description" content="Bootcamp 7 hari untuk mulai membaca huruf Jepang, menuju target ganda JLPT N5 dan N4 dalam 6 bulan.">
+<meta name="description" content="Bootcamp 7 hari untuk mulai membaca huruf Jepang, sepenuhnya di dalam situs ini — tanpa aplikasi tambahan.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@500;600;800&family=Noto+Sans+JP:wght@400;500;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --sumi:#1C1B1A;
-    --washi:#E8E2D0;
-    --paper:#F3EFE2;
-    --aizome:#1F3A5F;
-    --aizome-deep:#152A47;
-    --shu:#C33D2E;
-    --moss:#5C6B47;
-    --muted:#6B6459;
-    --line: rgba(28,27,26,0.14);
-    --card: #FBF9F2;
+    --sumi:#1C1B1A; --washi:#E8E2D0; --paper:#F3EFE2;
+    --aizome:#1F3A5F; --aizome-deep:#152A47; --shu:#C33D2E; --moss:#5C6B47;
+    --muted:#6B6459; --line: rgba(28,27,26,0.14); --card: #FBF9F2;
   }
   *{box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{
-    margin:0;
-    background:var(--washi);
-    color:var(--sumi);
-    font-family:'Noto Sans JP', sans-serif;
-    line-height:1.6;
-    -webkit-font-smoothing:antialiased;
-  }
+  body{ margin:0; background:var(--washi); color:var(--sumi); font-family:'Noto Sans JP', sans-serif; line-height:1.6; -webkit-font-smoothing:antialiased; }
   h1,h2,h3,.disp{ font-family:'Shippori Mincho', serif; font-weight:700; letter-spacing:0.01em; }
   .mono{ font-family:'JetBrains Mono', monospace; }
   a{ color:var(--aizome); }
-  img{max-width:100%;}
-  body::before{
-    content:"";
-    position:fixed; inset:0;
-    background-image: radial-gradient(rgba(28,27,26,0.035) 1px, transparent 1px);
-    background-size:3px 3px;
-    pointer-events:none;
-    z-index:0;
-  }
+  body::before{ content:""; position:fixed; inset:0; background-image: radial-gradient(rgba(28,27,26,0.035) 1px, transparent 1px); background-size:3px 3px; pointer-events:none; z-index:0; }
   .wrap{ max-width:920px; margin:0 auto; padding:0 24px; position:relative; z-index:1; }
 
-  /* ---------- ACCOUNT BAR ---------- */
-  .acct-bar{
-    display:flex; align-items:center; justify-content:space-between;
-    padding:16px 0; border-bottom:1px solid var(--line);
-    font-family:'JetBrains Mono',monospace; font-size:12.5px;
-  }
+  .acct-bar{ display:flex; align-items:center; justify-content:space-between; padding:16px 0; border-bottom:1px solid var(--line); font-family:'JetBrains Mono',monospace; font-size:12.5px; flex-wrap:wrap; gap:10px;}
   .acct-bar .brand{ color:var(--muted); letter-spacing:0.05em; }
-  .acct-actions{ display:flex; align-items:center; gap:10px; }
-  .acct-actions button{
-    font-family:'JetBrains Mono',monospace; font-size:12px;
-    background:none; border:1px solid var(--line); padding:7px 14px;
-    cursor:pointer; color:var(--sumi);
-  }
+  .acct-actions{ display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .acct-actions button{ font-family:'JetBrains Mono',monospace; font-size:12px; background:none; border:1px solid var(--line); padding:7px 14px; cursor:pointer; color:var(--sumi); }
   .acct-actions button.primary{ background:var(--aizome); color:#fff; border-color:var(--aizome); }
   .acct-actions button:hover{ border-color:var(--aizome); }
   .sync-status{ font-size:11.5px; color:var(--moss); display:flex; align-items:center; gap:6px; }
   .sync-status.err{ color:var(--shu); }
-  .sync-dot{ width:6px; height:6px; border-radius:50%; background:var(--moss); }
+  .sync-dot{ width:6px; height:6px; border-radius:50%; background:var(--moss); flex-shrink:0; }
 
-  /* ---------- MODAL ---------- */
-  .modal-overlay{
-    position:fixed; inset:0; background:rgba(28,27,26,0.55);
-    display:none; align-items:center; justify-content:center; z-index:50; padding:20px;
-  }
+  .modal-overlay{ position:fixed; inset:0; background:rgba(28,27,26,0.6); display:none; align-items:center; justify-content:center; z-index:50; padding:20px; }
   .modal-overlay.open{ display:flex; }
-  .modal{
-    background:var(--card); border:1px solid var(--line); max-width:380px; width:100%;
-    padding:28px; position:relative;
-  }
+  .modal{ background:var(--card); border:1px solid var(--line); max-width:380px; width:100%; padding:28px; position:relative; }
   .modal h3{ margin:0 0 6px; font-size:20px; }
   .modal p.sub{ color:var(--muted); font-size:13.5px; margin:0 0 20px; }
   .modal label{ font-family:'JetBrains Mono',monospace; font-size:11px; text-transform:uppercase; letter-spacing:0.08em; color:var(--aizome); display:block; margin-bottom:6px; }
-  .modal input{
-    width:100%; padding:10px 12px; border:1px solid var(--line); background:var(--washi);
-    font-family:'Noto Sans JP',sans-serif; font-size:14px; margin-bottom:16px; color:var(--sumi);
-  }
+  .modal input{ width:100%; padding:10px 12px; border:1px solid var(--line); background:var(--washi); font-family:'Noto Sans JP',sans-serif; font-size:14px; margin-bottom:16px; color:var(--sumi); }
   .modal input:focus{ outline:2px solid var(--aizome); outline-offset:1px; }
   .modal-msg{ font-size:13px; margin-bottom:14px; min-height:0; }
   .modal-msg.err{ color:var(--shu); }
-  .modal-msg.ok{ color:var(--moss); }
   .modal-actions{ display:flex; gap:10px; align-items:center; }
-  .modal-actions button.primary{
-    flex:1; background:var(--aizome); color:#fff; border:1px solid var(--aizome);
-    padding:11px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer;
-  }
+  .modal-actions button.primary{ flex:1; background:var(--aizome); color:#fff; border:1px solid var(--aizome); padding:11px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; }
   .modal-actions button.primary:disabled{ opacity:0.5; cursor:default; }
-  .modal-close{
-    position:absolute; top:14px; right:16px; background:none; border:none;
-    font-size:18px; cursor:pointer; color:var(--muted);
-  }
+  .modal-close{ position:absolute; top:14px; right:16px; background:none; border:none; font-size:18px; cursor:pointer; color:var(--muted); }
   .modal-switch{ font-size:12.5px; color:var(--muted); margin-top:14px; text-align:center; }
   .modal-switch button{ background:none; border:none; color:var(--aizome); cursor:pointer; text-decoration:underline; font-size:12.5px; padding:0; }
 
-  /* ---------- HERO ---------- */
-  header.hero{ padding:56px 0 56px; border-bottom:1px solid var(--line); position:relative; }
-  .eyebrow{
-    font-family:'JetBrains Mono', monospace; font-size:12.5px; letter-spacing:0.14em;
-    text-transform:uppercase; color:var(--aizome); display:flex; align-items:center; gap:10px; margin-bottom:22px;
-  }
+  header.hero{ padding:56px 0; border-bottom:1px solid var(--line); }
+  .eyebrow{ font-family:'JetBrains Mono', monospace; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; color:var(--aizome); display:flex; align-items:center; gap:10px; margin-bottom:22px; flex-wrap:wrap;}
   .eyebrow .kana-drift{ font-family:'Noto Sans JP', sans-serif; color:var(--muted); font-size:13px; letter-spacing:0.05em; }
   h1.title{ font-size:clamp(30px, 5vw, 50px); line-height:1.16; margin:0 0 20px; max-width:16ch; }
   h1.title .glyph{ color:var(--shu); font-weight:800; }
-  .hero-sub{ font-size:17px; color:#3a362f; max-width:58ch; margin:0 0 30px; }
+  .hero-sub{ font-size:17px; color:#3a362f; max-width:60ch; margin:0 0 30px; }
   .hero-facts{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); max-width:580px; }
   .hero-fact{ background:var(--paper); padding:14px 16px; }
   .hero-fact .n{ font-family:'JetBrains Mono',monospace; font-size:20px; font-weight:700; color:var(--aizome-deep); }
   .hero-fact .l{ font-size:11px; text-transform:uppercase; letter-spacing:0.06em; color:var(--muted); margin-top:2px; }
-
   .note{ margin:40px 0 0; padding:16px 18px; border-left:3px solid var(--shu); background:rgba(195,61,46,0.06); font-size:14.5px; max-width:68ch; }
   .note b{ color:var(--shu); }
+  .note.moss{ border-left-color:var(--moss); background:rgba(92,107,71,0.08); }
+  .note.moss b{ color:var(--moss); }
 
   section{ padding:60px 0; border-bottom:1px solid var(--line); }
   .section-head{ margin-bottom:34px; }
@@ -123,25 +72,22 @@
   .section-head p{ color:var(--muted); max-width:62ch; margin:0; font-size:15px; }
 
   .kana-progress{ display:flex; gap:6px; flex-wrap:wrap; margin:28px 0 0; padding:16px; background:var(--card); border:1px solid var(--line); }
-  .kana-progress .kchar{
-    width:30px; height:30px; display:flex; align-items:center; justify-content:center;
-    font-family:'Noto Sans JP', sans-serif; font-size:15px;
-    background:var(--washi); color:var(--muted); border:1px solid var(--line);
-    transition: all .25s ease;
-  }
+  .kana-progress .kchar{ width:30px; height:30px; display:flex; align-items:center; justify-content:center; font-family:'Noto Sans JP', sans-serif; font-size:15px; background:var(--washi); color:var(--muted); border:1px solid var(--line); transition: all .25s ease; }
   .kana-progress .kchar.on{ background:var(--aizome); color:#fff; border-color:var(--aizome); }
   .progress-label{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); margin-top:10px; }
 
-  .day-card{ background:var(--card); border:1px solid var(--line); margin-bottom:20px; position:relative; overflow:hidden; }
+  .srs-card{ background:var(--card); border:1px solid var(--line); padding:22px; display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap; }
+  .srs-card .srs-info{ font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); }
+  .srs-card .srs-count{ font-size:30px; font-family:'JetBrains Mono',monospace; color:var(--aizome-deep); font-weight:700; }
+  .srs-btn{ background:var(--aizome); color:#fff; border:none; padding:13px 22px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; }
+  .srs-btn:hover{ background:var(--aizome-deep); }
+
+  .day-card{ background:var(--card); border:1px solid var(--line); margin-bottom:20px; overflow:hidden; }
   .day-head{ display:flex; align-items:center; justify-content:space-between; padding:20px 22px; border-bottom:1px solid var(--line); gap:16px; }
   .day-num{ font-family:'JetBrains Mono',monospace; font-size:13px; color:var(--muted); letter-spacing:0.08em; }
   .day-head h3{ margin:0; font-size:20px; }
   .day-scope{ font-size:13px; color:var(--muted); margin-top:3px; font-family:'JetBrains Mono',monospace; }
-  .stamp-btn{
-    width:56px; height:56px; border-radius:50%; border:2px solid var(--shu); background:transparent; color:var(--shu);
-    font-family:'Shippori Mincho', serif; cursor:pointer; flex-shrink:0;
-    display:flex; align-items:center; justify-content:center; transition: all .2s ease; position:relative;
-  }
+  .stamp-btn{ width:56px; height:56px; border-radius:50%; border:2px solid var(--shu); background:transparent; color:var(--shu); font-family:'Shippori Mincho', serif; cursor:pointer; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition: all .2s ease; }
   .stamp-btn:hover{ background:rgba(195,61,46,0.08); }
   .stamp-btn.done{ background:var(--shu); color:#fff; border-color:var(--shu); transform:rotate(-8deg) scale(1.03); }
   .stamp-btn.done::after{ content:"✓"; font-size:22px; }
@@ -154,9 +100,9 @@
   .day-block ul{ margin:6px 0 0; padding-left:18px; font-size:15px; }
   .day-block li{ margin-bottom:4px; }
   .time-chip{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11.5px; background:var(--aizome); color:#fff; padding:3px 9px; border-radius:20px; }
-  .resources{ display:flex; flex-wrap:wrap; gap:8px; margin-top:2px; }
-  .resources a{ font-family:'JetBrains Mono',monospace; font-size:12px; text-decoration:none; color:var(--aizome-deep); border:1px solid var(--line); padding:4px 10px; background:var(--washi); transition: all .15s ease; }
-  .resources a:hover{ border-color:var(--aizome); background:#fff; }
+  .yt-chip{ display:inline-block; font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); border:1px dashed var(--line); padding:3px 9px; margin-left:6px; }
+  .trainer-launch{ background:var(--aizome); color:#fff; border:none; padding:13px 20px; font-family:'JetBrains Mono',monospace; font-size:13px; cursor:pointer; align-self:flex-start; }
+  .trainer-launch:hover{ background:var(--aizome-deep); }
 
   .phases{ position:relative; padding-left:26px; margin-top:30px; }
   .phases::before{ content:""; position:absolute; left:6px; top:6px; bottom:6px; width:1px; background:var(--line); }
@@ -169,19 +115,42 @@
 
   footer{ padding:48px 0 80px; }
   footer h3{ font-size:18px; margin-bottom:14px; }
-  .link-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:10px 24px; margin-bottom:36px;}
-  .link-grid a{ font-size:14px; text-decoration:none; display:flex; justify-content:space-between; border-bottom:1px dotted var(--line); padding-bottom:6px;}
-  .link-grid a span{ color:var(--muted); font-family:'JetBrains Mono',monospace; font-size:12px; }
-  .reset-row{ display:flex; align-items:center; gap:14px; font-size:13px; color:var(--muted); flex-wrap:wrap; }
+  .reset-row{ display:flex; align-items:center; gap:14px; font-size:13px; color:var(--muted); flex-wrap:wrap; margin-top:24px;}
   .reset-row button{ font-family:'JetBrains Mono',monospace; font-size:12px; background:none; border:1px solid var(--line); padding:6px 12px; cursor:pointer; color:var(--sumi); }
   .reset-row button:hover{ border-color:var(--shu); color:var(--shu); }
 
+  /* ---------- TRAINER MODAL ---------- */
+  .trainer-overlay{ position:fixed; inset:0; background:rgba(28,27,26,0.72); display:none; align-items:center; justify-content:center; z-index:60; padding:20px; }
+  .trainer-overlay.open{ display:flex; }
+  .trainer-box{ background:var(--paper); border:1px solid var(--line); max-width:440px; width:100%; padding:32px; position:relative; }
+  .trainer-close{ position:absolute; top:14px; right:16px; background:none; border:none; font-size:18px; cursor:pointer; color:var(--muted); }
+  .trainer-title{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:18px; }
+  .trainer-char{ font-family:'Noto Sans JP',sans-serif; font-size:88px; text-align:center; margin:10px 0 22px; color:var(--sumi); line-height:1; }
+  .trainer-progress{ font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); text-align:center; margin-bottom:14px; }
+  .trainer-input-row{ display:flex; gap:10px; }
+  .trainer-input-row input{ flex:1; padding:13px 14px; border:1px solid var(--line); background:var(--washi); font-family:'JetBrains Mono',monospace; font-size:16px; color:var(--sumi); }
+  .trainer-input-row input:focus{ outline:2px solid var(--aizome); }
+  .trainer-input-row button{ background:var(--aizome); color:#fff; border:none; padding:0 18px; font-family:'JetBrains Mono',monospace; cursor:pointer; }
+  .trainer-feedback{ min-height:22px; text-align:center; font-family:'JetBrains Mono',monospace; font-size:13px; margin-top:14px; }
+  .trainer-feedback.ok{ color:var(--moss); }
+  .trainer-feedback.err{ color:var(--shu); }
+  .trainer-score-live{ text-align:center; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); margin-top:6px; }
+  .trainer-result-badge{ text-align:center; font-family:'Shippori Mincho',serif; font-size:20px; font-weight:700; padding:14px; margin-bottom:16px; }
+  .trainer-result-badge.pass{ background:rgba(92,107,71,0.14); color:var(--moss); }
+  .trainer-result-badge.fail{ background:rgba(195,61,46,0.1); color:var(--shu); }
+  .trainer-result-stat{ font-family:'JetBrains Mono',monospace; font-size:13.5px; margin-bottom:8px; }
+  .trainer-result-note{ font-size:13.5px; margin-top:14px; color:var(--muted); }
+  .trainer-result-note.ok{ color:var(--moss); font-weight:700; }
+  .trainer-result-actions{ display:flex; gap:10px; margin-top:20px; }
+  .trainer-result-actions button{ flex:1; padding:12px; font-family:'JetBrains Mono',monospace; font-size:12.5px; cursor:pointer; border:1px solid var(--line); background:none; color:var(--sumi); }
+  .trainer-result-actions button.primary{ background:var(--aizome); color:#fff; border-color:var(--aizome); }
+
   @media (max-width:640px){
-    header.hero{ padding:44px 0 40px; }
+    header.hero{ padding:44px 0; }
     .hero-facts{ grid-template-columns:1fr 1fr; }
-    .link-grid{ grid-template-columns:1fr; }
     .day-head{ flex-wrap:wrap; }
-    .acct-bar{ flex-wrap:wrap; gap:10px; }
+    .trainer-char{ font-size:64px; }
+    .srs-card{ flex-direction:column; align-items:flex-start; }
   }
 </style>
 </head>
@@ -191,39 +160,52 @@
 
   <div class="acct-bar">
     <div class="brand">HARI-PERTAMA-KANA</div>
-    <div class="acct-actions" id="acctActions">
-      <button id="btnLogin">Masuk</button>
-      <button class="primary" id="btnSignup">Buat Akun</button>
-    </div>
+    <div class="acct-actions" id="acctActions"></div>
   </div>
 
   <header class="hero">
     <div class="eyebrow">Bootcamp 7 hari <span class="kana-drift">→ 6 bulan menuju N5 & N4</span></div>
     <h1 class="title">Belum bisa baca satu huruf pun. <span class="glyph">Minggu ini itu berubah.</span></h1>
-    <p class="hero-sub">Kamu mulai dari nol — dan itu tidak masalah, rencana ini memang dirancang untuk titik awal itu. Target akhirnya bukan "N5 dulu, baru mikir N4" — targetnya dari awal adalah <b>keduanya dalam satu jalur 6 bulan yang sama</b>: setara N5 di sekitar bulan ke-3, setara N4 di bulan ke-6. Minggu pertama ini membangun satu-satunya fondasi yang keduanya butuhkan: bisa membaca hiragana dan katakana.</p>
+    <p class="hero-sub">Kamu mulai dari nol. Target dari awal adalah <b>N5 dan N4 sekaligus dalam satu jalur 6 bulan</b>: setara N5 di sekitar bulan ke-3, setara N4 di bulan ke-6. Seluruh cara belajarnya — latihan kana, sistem ulasan berjadwal, sampai pelacak progres — ada di dalam situs ini sendiri. Tidak perlu instal aplikasi apa pun.</p>
     <div class="hero-facts">
       <div class="hero-fact"><div class="n">92</div><div class="l">huruf kana</div></div>
       <div class="hero-fact"><div class="n">45m</div><div class="l">per hari, tidak lebih</div></div>
       <div class="hero-fact"><div class="n">N5+N4</div><div class="l">target ganda, 6 bulan</div></div>
     </div>
-    <div class="note"><b>Perhitungan jujur:</b> 45 menit/hari selama 6 bulan ≈ 230 jam. N5 biasanya butuh 100–150 jam, N4 butuh tambahan 150–250 jam di atasnya. Jadi 230 jam nyaman untuk N5, tapi ketat untuk N4. Peta jalan di bawah menandai dengan jelas bulan ke berapa waktu belajar harianmu perlu bertambah — supaya target ganda ini tetap realistis, bukan sekadar harapan.</div>
+    <div class="note"><b>Perhitungan jujur:</b> 45 menit/hari selama 6 bulan ≈ 230 jam. N5 biasanya butuh 100–150 jam, N4 butuh tambahan 150–250 jam. 230 jam nyaman untuk N5, ketat untuk N4 — peta jalan di bawah menandai bulan ke berapa waktu harianmu perlu bertambah.</div>
+    <div class="note moss"><b>Semua di dalam situs ini:</b> pelatih kana dan sistem ulasan di bawah ini kode asli, bukan tautan ke aplikasi lain — tidak ada yang perlu diunduh. Video YouTube tetap boleh dipakai sebagai pelengkap latihan mendengar, itu satu-satunya sumber luar yang disebut di sini.</div>
   </header>
 
   <section id="progress-section">
     <div class="section-head">
       <div class="eyebrow">Pelacak langsung</div>
       <h2>Kana-mu, terbuka satu per satu</h2>
-      <p>Tekan cap di tiap hari, dan hurufnya akan menyala di sini. Kalau kamu masuk akun, progres ini otomatis tersimpan dan bisa dibuka lagi dari HP, laptop, atau perangkat lain.</p>
+      <p>Tekan cap di tiap hari, hurufnya menyala di sini dan langsung masuk ke sistem ulasan harian di bawah.</p>
     </div>
     <div class="kana-progress" id="kanaProgress"></div>
     <div class="progress-label" id="progressLabel">0 / 92 kana terbuka</div>
   </section>
 
+  <section id="srs-section">
+    <div class="section-head">
+      <div class="eyebrow">Sistem ulasan bawaan</div>
+      <h2>Pengganti Anki — sudah tertanam di situs ini</h2>
+      <p>Setiap huruf yang kamu buka otomatis masuk ke sini dan dijadwalkan ulang secara otomatis: benar → jarak ulasan berikutnya makin panjang, salah → muncul lagi hari ini juga. Ini logika spaced-repetition yang sama seperti Anki, hanya saja jalan langsung di halaman ini.</p>
+    </div>
+    <div class="srs-card">
+      <div>
+        <div class="srs-count" id="srsDueCount">0</div>
+        <div class="srs-info">kartu jatuh tempo hari ini</div>
+      </div>
+      <button class="srs-btn" id="srsStartBtn">Mulai Ulasan Harian</button>
+    </div>
+  </section>
+
   <section id="days">
     <div class="section-head">
       <div class="eyebrow">7 hari</div>
-      <h2>Satu tugas per hari. Tanpa belokan.</h2>
-      <p>Kerjakan tugasnya, jalankan tes di akhir, dan cap harinya hanya kalau lulus tes. Kalau gagal tes, ulangi hari yang sama besok — jangan lanjut ke hari berikutnya. Fondasi huruf yang goyah akan merusak semua yang dibangun di atasnya nanti.</p>
+      <h2>Satu tugas per hari. Semua alatnya di halaman ini.</h2>
+      <p>Kerjakan tugasnya lewat pelatih kana bawaan di tiap kartu, jalankan sampai lulus kriteria, baru cap harinya. Kalau belum lulus, ulangi hari yang sama besok, jangan lanjut dulu.</p>
     </div>
     <div id="dayList"></div>
   </section>
@@ -231,17 +213,17 @@
   <section id="roadmap">
     <div class="section-head">
       <div class="eyebrow">Setelah hari ke-7</div>
-      <h2>Ke mana minggu ini sebenarnya menuju</h2>
-      <p>Kana yang kamu kuasai minggu ini adalah tiket masuk. Ini rute lengkap 6 bulan dari tiket itu sampai duduk di ujian N5, lalu N4 — dua target, satu jalur.</p>
+      <h2>Ke mana minggu ini menuju</h2>
+      <p>Kana minggu ini adalah tiket masuk. Modul tata bahasa, kosakata, dan simulasi ujian di bulan-bulan berikutnya akan dibangun menyusul langsung di situs yang sama — bukan berpindah ke aplikasi lain — memakai mesin pelatih dan sistem ulasan yang sama seperti minggu ini.</p>
     </div>
     <div class="phases" id="phaseList"></div>
   </section>
 
   <footer>
-    <h3>Alat yang dipakai minggu ini</h3>
-    <div class="link-grid" id="linkGrid"></div>
+    <h3>Yang boleh dari luar situs ini</h3>
+    <p style="color:var(--muted); font-size:14.5px; max-width:60ch;">Hanya satu: <b>video YouTube</b>, khusus untuk melatih telinga mendengarkan penutur asli — cari sendiri video "listening pemula bahasa Jepang" atau "JLPT N5 listening practice" sesuai selera belajarmu. Tidak ada aplikasi, tidak ada situs lain, tidak ada yang perlu diunduh untuk bagian membaca dan tata bahasa — semuanya menyusul dibangun di sini.</p>
     <div class="reset-row">
-      <span id="resetLabel">Mau mulai ulang dari nol? Hapus semua cap dan progres.</span>
+      <span>Mau mulai ulang dari nol? Hapus semua cap, progres, dan jadwal ulasan.</span>
       <button id="resetBtn">Reset progres</button>
     </div>
   </footer>
@@ -259,143 +241,108 @@
     <label>Password</label>
     <input type="password" id="inputPassword" autocomplete="current-password" placeholder="minimal 6 karakter">
     <div class="modal-msg" id="modalMsg"></div>
-    <div class="modal-actions">
-      <button class="primary" id="modalSubmit">Masuk</button>
+    <div class="modal-actions"><button class="primary" id="modalSubmit">Masuk</button></div>
+    <div class="modal-switch"><span id="modalSwitchText">Belum punya akun?</span> <button id="modalSwitchBtn">Buat akun</button></div>
+  </div>
+</div>
+
+<!-- ---------- TRAINER MODAL ---------- -->
+<div class="trainer-overlay" id="trainerOverlay">
+  <div class="trainer-box">
+    <button class="trainer-close" id="trainerClose">✕</button>
+    <div class="trainer-title" id="trainerTitle">Pelatih Kana</div>
+
+    <div id="trainerQuizArea">
+      <div class="trainer-char" id="trainerCharDisplay">あ</div>
+      <div class="trainer-progress" id="trainerProgress">Soal 1 / 20</div>
+      <div class="trainer-input-row">
+        <input type="text" id="trainerInput" placeholder="ketik romaji, lalu Enter" autocomplete="off">
+        <button id="trainerSubmit">→</button>
+      </div>
+      <div class="trainer-feedback" id="trainerFeedback"></div>
+      <div class="trainer-score-live" id="trainerScoreLive">Benar: 0/0</div>
     </div>
-    <div class="modal-switch">
-      <span id="modalSwitchText">Belum punya akun?</span>
-      <button id="modalSwitchBtn">Buat akun</button>
-    </div>
+
+    <div id="trainerResult" style="display:none;"></div>
   </div>
 </div>
 
 <script>
-/* ================= DATA (Indonesian copy) ================= */
-
+/* ================= KANA DATA ================= */
 const HIRAGANA_BASE = "あいうえお かきくけこ さしすせそ たちつてと なにぬねの はひふへほ まみむめも やゆよ らりるれろ わをん".replace(/ /g,"").split("");
-const HIRAGANA_MOD = "がぎぐげご ざじずぜぞ だぢづでど ばびぶべぼ ぱぴぷぺぽ きゃきゅきょ しゃしゅしょ ちゃちゅちょ にゃにゅにょ ひゃひゅひょ みゃみゅみょ りゃりゅりょ".replace(/ /g,"").split("");
-const KATAKANA_ALL = "アイウエオ カキクケコ サシスセソ タチツテト ナニヌネノ ハヒフヘホ マミムメモ ヤユヨ ラリルレロ ワヲン ガギグゲゴ ザジズゼゾ ダヂヅデド バビブベボ パピプペポ".replace(/ /g,"").split("");
+const HIRAGANA_MOD  = "がぎぐげご ざじずぜぞ だぢづでど ばびぶべぼ ぱぴぷぺぽ きゃきゅきょ しゃしゅしょ ちゃちゅちょ にゃにゅにょ ひゃひゅひょ みゃみゅみょ りゃりゅりょ".replace(/ /g,"").split("");
+const KATAKANA_ALL  = "アイウエオ カキクケコ サシスセソ タチツテト ナニヌネノ ハヒフヘホ マミムメモ ヤユヨ ラリルレロ ワヲン ガギグゲゴ ザジズゼゾ ダヂヅデド バビブベボ パピプペポ".replace(/ /g,"").split("");
 
+const ROMAJI_BASE = ["a","i","u","e","o","ka","ki","ku","ke","ko","sa","shi","su","se","so","ta","chi","tsu","te","to","na","ni","nu","ne","no","ha","hi","fu","he","ho","ma","mi","mu","me","mo","ya","yu","yo","ra","ri","ru","re","ro","wa","wo","n"];
+const ROMAJI_MOD = ["ga","gi","gu","ge","go","za","ji","zu","ze","zo","da","ji","zu","de","do","ba","bi","bu","be","bo","pa","pi","pu","pe","po","kya","kyu","kyo","sha","shu","sho","cha","chu","cho","nya","nyu","nyo","hya","hyu","hyo","mya","myu","myo","rya","ryu","ryo"];
+const ROMAJI_KATA = ROMAJI_BASE.concat(ROMAJI_MOD.slice(0,25));
+
+function zip(chars, romajis){ const m={}; chars.forEach((c,i)=>{ m[c]=romajis[i]; }); return m; }
+const ROMAJI_MAP = { ...zip(HIRAGANA_BASE, ROMAJI_BASE), ...zip(HIRAGANA_MOD, ROMAJI_MOD), ...zip(KATAKANA_ALL, ROMAJI_KATA) };
+
+const ALT_BY_ROMAJI = { shi:["si"], chi:["ti"], tsu:["tu"], fu:["hu"], ji:["zi","di"], zu:["du"], sha:["sya"], shu:["syu"], sho:["syo"], cha:["tya"], chu:["tyu"], cho:["tyo"], n:["nn"] };
+function acceptableAnswers(r){ return [r, ...(ALT_BY_ROMAJI[r]||[])]; }
+
+/* ================= DAY CONTENT ================= */
 const DAYS = [
-  {
-    n: 1, title: "Hiragana, 15 huruf pertama", scope: "あ-そ  (baris vokal · k · s)",
-    time: "45 menit",
-    task: "Buka alat latihan hiragana, atur hanya untuk baris vokal + baris か + baris さ (15 huruf: あいうえお かきくけこ さしすせそ). Jalankan sesi 20 soal berulang kali — tebak-lalu-cek, bukan membaca tabel pasif.",
-    criterion: "Skor 90%+ pada tiga sesi 20-soal berturut-turut untuk 15 huruf ini, tanpa membuka tabel saat menjawab.",
-    avoid: [
-      "Jangan coba hafal semua 46 hiragana dasar hari ini — 15 huruf yang benar-benar kuat lebih baik dari 46 huruf yang setengah-setengah.",
-      "Jangan sentuh katakana atau kosakata dulu.",
-      "Jangan hanya menyalin huruf dengan tangan sebagai satu-satunya cara — itu melatih mengenali tulisanmu sendiri, bukan bentuk cetaknya."
-    ],
-    unlocks: HIRAGANA_BASE.slice(0,15),
-    links: [ {t:"Real Kana (latihan)", u:"https://realkana.com/"}, {t:"Panduan hiragana Tofugu", u:"https://www.tofugu.com/japanese/learn-hiragana/"} ]
+  { n:1, title:"Hiragana, 15 huruf pertama", scope:"あ-そ (baris vokal · k · s)", time:"45 menit", threshold:90,
+    practice: HIRAGANA_BASE.slice(0,15), unlocks: HIRAGANA_BASE.slice(0,15),
+    task:"Buka Pelatih Kana di bawah, mode 15 huruf ini. Jawab dengan mengetik romaji-nya, bukan membaca tabel dulu — tebak-lalu-cek dari awal.",
+    criterion:"Lulus 3 ronde berturut-turut dengan akurasi 90%+ pada 20 soal (bisa berulang huruf), dari Pelatih Kana di kartu ini.",
+    avoid:["Jangan coba hafal semua 46 hiragana dasar hari ini — 15 huruf yang benar-benar kuat lebih baik dari 46 yang setengah-setengah.","Jangan sentuh katakana atau kosakata dulu.","Jangan hanya menyalin huruf dengan tangan sebagai satu-satunya cara belajar."]
   },
-  {
-    n: 2, title: "Hiragana, 15 huruf berikutnya", scope: "た-ほ  (baris t · n · h) + ulas ulang",
-    time: "45 menit",
-    task: "Tambahkan baris た, な, は (たちつてと なにぬねの はひふへほ). 10 menit pertama campur dengan 15 huruf kemarin, 35 menit sisanya latihan gabungan 30 huruf.",
-    criterion: "90%+ pada tiga sesi yang mencampur semua 30 huruf yang sudah dipelajari (bukan cuma huruf baru hari ini).",
-    avoid: [
-      "Jangan hanya latihan huruf baru hari ini — kalau hanya fokus huruf baru, huruf kemarin akan lupa lagi di hari Jumat.",
-      "Jangan mulai katakana.",
-      "Jangan memperlambat diri untuk menulis tangan tiap huruf — kecepatan mengenali lebih penting dari urutan goresan di tahap ini."
-    ],
-    unlocks: HIRAGANA_BASE.slice(15,30),
-    links: [ {t:"Real Kana (latihan)", u:"https://realkana.com/"} ]
+  { n:2, title:"Hiragana, 15 huruf berikutnya", scope:"た-ほ (baris t · n · h) + ulas ulang", time:"45 menit", threshold:90,
+    practice: HIRAGANA_BASE.slice(0,30), unlocks: HIRAGANA_BASE.slice(15,30),
+    task:"Pelatih Kana hari ini otomatis mencampur 15 huruf baru dengan 15 huruf kemarin — jalankan beberapa ronde sampai lulus kriteria untuk gabungan 30 huruf.",
+    criterion:"Lulus 3 ronde berturut-turut dengan akurasi 90%+ untuk 30 huruf gabungan (bukan cuma yang baru).",
+    avoid:["Jangan hanya fokus huruf baru — kalau begitu, huruf kemarin akan terlupa lagi minggu ini.","Jangan mulai katakana.","Jangan memperlambat diri menulis tangan tiap huruf — kecepatan mengenali lebih penting dari urutan goresan sekarang."]
   },
-  {
-    n: 3, title: "Hiragana, 16 huruf terakhir", scope: "ま-ん  (baris m·y·r·w, ん) — set dasar lengkap",
-    time: "45 menit",
-    task: "Tambahkan sisa hiragana dasar (まみむめも やゆよ らりるれろ わをん — 16 huruf, catat や/ゆ/よ dan わ/を hanya punya 3 dan 2 bunyi). Latih seluruh 46 huruf dasar sekaligus.",
-    criterion: "90%+ untuk seluruh 46 huruf dasar, tiga sesi berturut-turut, rata-rata di bawah 20 detik per huruf.",
-    avoid: [
-      "Jangan mulai dakuten (が, ざ, dst.) atau gabungan (きゃ) dulu — set dasar dulu sampai tuntas.",
-      "Jangan terpaku memperbaiki り/る atau ぬ/め yang mirip — tandai saja di kepala, biarkan pengulangan ekstra yang membereskan, jangan berhenti menganalisis bentuk goresan.",
-      "Jangan buka katakana hari ini walau penasaran — satu alfabet dulu minggu ini."
-    ],
-    unlocks: HIRAGANA_BASE.slice(30,46),
-    links: [ {t:"Real Kana (latihan)", u:"https://realkana.com/"} ]
+  { n:3, title:"Hiragana, 16 huruf terakhir", scope:"ま-ん (baris m·y·r·w, ん) — set dasar lengkap", time:"45 menit", threshold:90,
+    practice: HIRAGANA_BASE.slice(0,46), unlocks: HIRAGANA_BASE.slice(30,46),
+    task:"Pelatih Kana sekarang mencakup seluruh 46 hiragana dasar. Jalankan ronde sampai lulus kriteria untuk semuanya sekaligus.",
+    criterion:"Lulus 3 ronde berturut-turut dengan akurasi 90%+ untuk seluruh 46 huruf dasar.",
+    avoid:["Jangan mulai dakuten (が, ざ, dst.) atau gabungan (きゃ) dulu.","Jangan berhenti lama di り/る atau ぬ/め yang mirip — biarkan pengulangan ekstra yang membereskan.","Jangan buka katakana hari ini."]
   },
-  {
-    n: 4, title: "Hiragana, bunyi modifikasi", scope: "が/ざ/だ/ば/ぱ + gabungan きゃ",
-    time: "45 menit",
-    task: "Latih set dakuten (が, ざ, だ, ば), handakuten (ぱ), dan gabungan yōon (きゃ, しゃ, ちゃ, dst.) — ini memakai bunyi yang sudah kamu kuasai, hanya dimodifikasi. Campur ke kumpulan set dasar yang sudah ada.",
-    criterion: "90%+ pada sesi yang mencampur huruf dasar + modifikasi, tiga sesi berturut-turut.",
-    avoid: [
-      "Jangan mulai katakana hari ini — tuntaskan hiragana sampai benar-benar kuat dulu, karena hiragana yang setengah matang bikin katakana membingungkan (banyak bentuk mirip di antara keduanya).",
-      "Jangan hafalkan ini sebagai simbol baru — anggap が sebagai 'か + dengung', bukan karakter baru. Cara pandang ini yang jadi jalan pintasnya.",
-      "Jangan lewati gabungan yōon untuk hemat waktu — ini sering muncul di kata nyata (きゃ = kya, seperti di 客 kyaku)."
-    ],
-    unlocks: HIRAGANA_MOD,
-    links: [ {t:"Real Kana (latihan)", u:"https://realkana.com/"}, {t:"Penjelasan dakuten Tofugu", u:"https://www.tofugu.com/japanese/learn-hiragana/"} ]
+  { n:4, title:"Hiragana, bunyi modifikasi", scope:"が/ざ/だ/ば/ぱ + gabungan きゃ", time:"45 menit", threshold:90,
+    practice: HIRAGANA_BASE.concat(HIRAGANA_MOD), unlocks: HIRAGANA_MOD,
+    task:"Pelatih Kana hari ini mencampur seluruh hiragana dasar dengan bunyi modifikasi (dakuten, handakuten, gabungan yōon). Anggap が sebagai 'か + dengung', bukan simbol baru.",
+    criterion:"Lulus 3 ronde berturut-turut dengan akurasi 90%+ untuk gabungan dasar + modifikasi.",
+    avoid:["Jangan mulai katakana hari ini — tuntaskan hiragana dulu, karena hiragana setengah matang bikin katakana membingungkan.","Jangan lewati gabungan yōon untuk hemat waktu — sering muncul di kata nyata.","Jangan hafalkan tiap bentuk terpisah — kaitkan ke bunyi dasarnya."]
   },
-  {
-    n: 5, title: "Katakana, putaran pertama", scope: "Seluruh set katakana — sekadar mengenali",
-    time: "45 menit",
-    task: "Katakana memakai bunyi yang sama persis dengan hiragana, hanya bentuknya beda — jadi ini soal mencocokkan bentuk baru ke bunyi yang sudah kamu miliki, bukan belajar bunyi dari nol. Latih seluruh katakana dengan standar lebih longgar hari ini.",
-    criterion: "80%+ pada kuis 30 soal katakana (standar perkenalan pertama, belum harus sempurna).",
-    avoid: [
-      "Jangan berharap katakana langsung melekat permanen hari ini — itu tugas hari 6. Memaksa 100% hari ini buang-buang waktu yang tidak kamu punya.",
-      "Jangan buru-buru lewati pasangan yang sering tertukar — beri pengulangan ekstra khusus untuk シ vs ツ dan ソ vs ン, empat huruf paling sering salah.",
-      "Jangan mulai belajar tata bahasa atau kosakata dulu."
-    ],
-    unlocks: KATAKANA_ALL.slice(0,35),
-    links: [ {t:"Real Kana (mode katakana)", u:"https://realkana.com/"} ]
+  { n:5, title:"Katakana, putaran pertama", scope:"Sebagian besar set katakana — sekadar mengenali", time:"45 menit", threshold:80,
+    practice: KATAKANA_ALL.slice(0,35), unlocks: KATAKANA_ALL.slice(0,35),
+    task:"Katakana memakai bunyi yang sama persis dengan hiragana, hanya bentuknya beda. Jalankan Pelatih Kana mode katakana dengan standar lebih longgar hari ini.",
+    criterion:"Lulus minimal 1 ronde dengan akurasi 80%+ (standar perkenalan pertama, belum harus sempurna).",
+    avoid:["Jangan paksa 100% hari ini — itu tugas hari 6.","Jangan buru-buru lewati シ vs ツ dan ソ vs ン — beri pengulangan ekstra khusus untuk empat huruf ini.","Jangan mulai tata bahasa atau kosakata dulu."]
   },
-  {
-    n: 6, title: "Katakana matang + siapkan sistem ulasan", scope: "Katakana sampai 90%+ · pasang Anki",
-    time: "45 menit",
-    task: "25 menit pertama: latih katakana (semua huruf, termasuk sisa yang belum kuat) sampai benar-benar mantap. 20 menit terakhir: pasang Anki (desktop atau HP), impor deck 'Kana + Kosakata Inti N5' yang sudah jadi, dan jalankan sesi ulasan pertama 20 kartu supaya kebiasaannya sudah jalan sebelum hari 7.",
-    criterion: "90%+ pada tiga sesi katakana berturut-turut, DAN Anki terpasang dengan deck ter-load serta satu sesi ulasan tercatat selesai.",
-    avoid: [
-      "Jangan buat deck kartu sendiri dari nol hari ini — memakai deck yang sudah teruji menghemat jam yang kamu butuhkan untuk latihan kana.",
-      "Jangan mulai materi tata bahasa baru — pemasangan Anki adalah satu-satunya hal 'baru' hari ini.",
-      "Jangan lewati Anki karena merasa kana sudah selesai — ini sistem yang akan membawamu selama 6 bulan ke depan, jadi hari 6 memang waktunya harus mulai."
-    ],
-    unlocks: KATAKANA_ALL.slice(35),
-    links: [ {t:"Anki (gratis, semua platform)", u:"https://apps.ankiweb.net/"}, {t:"AnkiWeb — deck bersama", u:"https://ankiweb.net/shared/decks/"} ]
+  { n:6, title:"Katakana matang + aktifkan ulasan harian", scope:"Katakana sampai 90%+ · nyalakan sistem ulasan", time:"45 menit", threshold:90,
+    practice: KATAKANA_ALL, unlocks: KATAKANA_ALL.slice(35),
+    task:"25 menit: latih katakana penuh lewat Pelatih Kana sampai benar-benar mantap. 20 menit: buka bagian 'Sistem Ulasan Bawaan' di atas dan selesaikan sesi ulasan pertamanya — ini menggantikan Anki, sudah jalan otomatis di situs ini begitu kamu mencap hari-hari sebelumnya.",
+    criterion:"Lulus 3 ronde berturut-turut dengan akurasi 90%+ untuk seluruh katakana, DAN satu sesi Ulasan Harian selesai dijalankan.",
+    avoid:["Jangan cari aplikasi pihak ketiga untuk ulasan — sistemnya sudah ada di situs ini, tinggal dipakai.","Jangan mulai materi tata bahasa baru hari ini.","Jangan lewati sesi ulasan karena merasa kana sudah selesai — kebiasaan ini yang menjaga kana tetap nempel sampai bulan ke-6."]
   },
-  {
-    n: 7, title: "Tes kana lengkap + kunci 6 bulan ke depan", scope: "Tes campuran 92/92 · susun rencana",
-    time: "45 menit",
-    task: "25 menit pertama: kerjakan satu tes campuran hiragana+katakana yang lengkap, berwaktu, dua arah, mencakup 92 huruf termasuk dakuten/gabungan. Langsung ulas tiap jawaban salah. 20 menit terakhir: blokir slot kalender rutin untuk 6 bulan ke depan memakai peta jalan di bawah, dan tentukan sumber tata bahasa untuk fase 2 sekarang juga supaya hari 8 tidak ada hambatan persiapan.",
-    criterion: "90%+ pada tes campuran 92 huruf, rata-rata di bawah 3 detik per huruf, DAN kalender terisi slot belajar sampai bulan ke-6.",
-    avoid: [
-      "Jangan mulai kanji atau tata bahasa berat hari ini — itu fase 2, mulai besok dengan lembar bersih.",
-      "Jangan lewati langkah blokir kalender demi 'hemat waktu' — langkah ini yang sebenarnya menentukan apakah bulan ke-2 benar-benar terjadi.",
-      "Jangan targetkan 100% — 90%+ dengan sesekali ragu setengah detik adalah garis finis minggu pertama yang normal dan wajar."
-    ],
-    unlocks: [],
-    links: [ {t:"Real Kana (mode campuran penuh)", u:"https://realkana.com/"} ]
+  { n:7, title:"Tes kana lengkap + kunci 6 bulan ke depan", scope:"Tes campuran menyeluruh · susun rencana", time:"45 menit", threshold:90,
+    practice: HIRAGANA_BASE.concat(HIRAGANA_MOD, KATAKANA_ALL), unlocks: [],
+    task:"25 menit: jalankan Pelatih Kana mode campuran penuh (hiragana + katakana + dakuten + gabungan). Ulas tiap jawaban salah dari feedback yang muncul. 20 menit: blokir slot kalender rutin untuk 6 bulan ke depan memakai peta jalan di bawah.",
+    criterion:"Lulus 3 ronde berturut-turut dengan akurasi 90%+ pada tes campuran menyeluruh, DAN kalender terisi sampai bulan ke-6.",
+    avoid:["Jangan mulai kanji atau tata bahasa berat hari ini — itu fase berikutnya, mulai besok.","Jangan lewati langkah blokir kalender demi 'hemat waktu'.","Jangan targetkan 100% — 90%+ dengan sesekali ragu adalah garis finis yang wajar."]
   }
 ];
 
 const PHASES = [
-  { when:"Minggu 1", title:"Melek kana (situs ini)", desc:"Hiragana + katakana sampai 90%+ pengenalan. Tidak ada yang lain. Ini fondasi tempat N5 dan N4 sama-sama berdiri.", target:"92/92 kana" },
-  { when:"Minggu 2–9  ·  Bulan 1–2", title:"Tata bahasa + kosakata inti N5", desc:"Kerjakan kursus tata bahasa pemula lengkap (panduan Tae Kim atau berbasis Genki) bersamaan dengan deck Anki tingkat N5. Tambah 10–15 kartu kosakata baru/hari, ulas tiap hari tanpa bolong. Mulai baca kalimat bertingkat N5 begitu partikel dasar (は, を, が, に, で) sudah lancar.", target:"~800 kosakata · tata bahasa N5 lengkap" },
-  { when:"Minggu 10–13  ·  Bulan 3", title:"Ujian simulasi N5", desc:"Ganti ke tes simulasi N5 penuh dan berwaktu tiap minggu (kosakata, tata bahasa, membaca, mendengar). Catat tiap jawaban salah kembali ke Anki sebagai kartu sendiri supaya kesalahan tidak berulang.", target:"Skor konsisten di atas batas lulus N5" },
-  { when:"Bulan 4", title:"Jembatan ke tata bahasa N4", desc:"Di sinilah 45 menit/hari mulai jadi penghambat — rencanakan tambah jadi 60–75 menit/hari kalau targetnya benar-benar N4, bukan sekadar sekilas kenal. Mulai poin tata bahasa N4 dan naikkan tempo kosakata jadi 15–20 kartu/hari.", target:"Tata bahasa N4 ~50% selesai" },
-  { when:"Bulan 5", title:"Kosakata N4 + dorongan kanji", desc:"N4 jauh lebih berat di bacaan kanji dibanding N5. Tambahkan blok khusus 20 menit membaca kanji (bukan sekadar arti — benar-benar membaca dalam konteks) di atas kebiasaan Anki yang sudah ada.", target:"~1500 kosakata · ~200 kanji" },
-  { when:"Bulan 6", title:"Ujian simulasi N4 + latihan hari-H", desc:"Tes simulasi N4 penuh dan berwaktu tiap minggu, tiru persis waktu dan format ujian asli, ulas tiap kesalahan di hari yang sama. Dua minggu terakhir: hanya ulasan ringan, jaga tidur dan konsistensi, jangan kebut materi baru.", target:"Siap ujian N4" }
-];
-
-const RESOURCES = [
-  {t:"Real Kana — latihan kana", u:"https://realkana.com/"},
-  {t:"Tofugu — panduan hiragana/katakana", u:"https://www.tofugu.com/japanese/learn-hiragana/"},
-  {t:"Anki — aplikasi repetisi berjarak", u:"https://apps.ankiweb.net/"},
-  {t:"Panduan Tata Bahasa Jepang Tae Kim", u:"https://guidetojapanese.org/"},
-  {t:"Jisho — kamus", u:"https://jisho.org/"},
-  {t:"Bunpro — SRS tata bahasa, jalur N5/N4", u:"https://bunpro.jp/"},
-  {t:"JLPT Sensei — soal & daftar latihan", u:"https://jlptsensei.com/"},
-  {t:"Situs resmi JLPT", u:"https://www.jlpt.jp/e/"}
+  { when:"Minggu 1", title:"Melek kana (situs ini, sekarang)", desc:"Hiragana + katakana sampai 90%+ pengenalan lewat Pelatih Kana bawaan, langsung diteruskan ke sistem ulasan otomatis. Ini fondasi tempat N5 dan N4 sama-sama berdiri.", target:"92/92 kana" },
+  { when:"Bulan 1–2", title:"Modul tata bahasa + kosakata inti N5", desc:"Fase berikutnya: modul pelajaran tata bahasa dan kartu kosakata ditambahkan langsung ke situs ini, memakai mesin latihan dan penjadwalan ulasan yang sama seperti kana minggu ini — bukan pindah ke aplikasi lain.", target:"~800 kosakata · tata bahasa N5" },
+  { when:"Bulan 3", title:"Simulasi ujian N5 (dalam situs)", desc:"Modul tes simulasi berwaktu dibangun menyusul di situs yang sama. Jawaban salah otomatis masuk kembali ke sistem ulasan harian.", target:"Skor konsisten di atas batas lulus N5" },
+  { when:"Bulan 4", title:"Jembatan ke tata bahasa N4", desc:"Di sinilah 45 menit/hari mulai jadi penghambat — rencanakan tambah jadi 60–75 menit/hari kalau N4 memang target serius. Modul tata bahasa N4 ditambahkan ke situs.", target:"Tata bahasa N4 ~50% selesai" },
+  { when:"Bulan 5", title:"Kosakata N4 + kanji", desc:"N4 lebih berat di bacaan kanji dibanding N5. Modul kanji ditambahkan ke sistem ulasan yang sama, dengan latihan membaca dalam konteks kalimat.", target:"~1500 kosakata · ~200 kanji" },
+  { when:"Bulan 6", title:"Simulasi ujian N4 + latihan hari-H", desc:"Simulasi penuh mingguan meniru format dan waktu ujian asli. Dua minggu terakhir: hanya ulasan ringan lewat sistem bawaan, jaga tidur dan konsistensi.", target:"Siap ujian N4" }
 ];
 
 /* ================= STATE ================= */
 const STORAGE_KEY = "kana-bootcamp-progress";
 const TOKEN_KEY = "kana-auth-token";
 const USER_KEY = "kana-auth-username";
-
-function loadLocalState(){ try{ return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }catch(e){ return {}; } }
+function loadLocalState(){ try{ const s = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; if(!s.srs) s.srs = {}; return s; }catch(e){ return {srs:{}}; } }
 function saveLocalState(s){ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
 
 let state = loadLocalState();
@@ -412,63 +359,61 @@ async function apiCall(path, opts = {}){
   if (!res.ok) throw new Error(data.error || 'Terjadi kesalahan.');
   return data;
 }
-
 async function pullProgressFromAccount(){
   if (!token) return;
   try{
     const data = await apiCall('/api/progress');
-    if (data.progress && Object.keys(data.progress).length){
-      state = data.progress;
-      saveLocalState(state);
-    }
+    if (data.progress && Object.keys(data.progress).length){ state = data.progress; if(!state.srs) state.srs={}; saveLocalState(state); }
     setSyncStatus('ok', 'Tersinkron ke akun');
     renderAll();
-  }catch(e){
-    setSyncStatus('err', 'Gagal sinkron — cek koneksi database');
-  }
+  }catch(e){ setSyncStatus('err', 'Gagal sinkron'); }
 }
-
 function pushProgressToAccount(){
   if (!token) return;
   clearTimeout(saveTimer);
   setSyncStatus('pending', 'Menyimpan…');
   saveTimer = setTimeout(async () => {
-    try{
-      await apiCall('/api/progress', { method:'POST', body: JSON.stringify({ progress: state }) });
-      setSyncStatus('ok', 'Tersimpan di akun');
-    }catch(e){
-      setSyncStatus('err', 'Gagal menyimpan — coba lagi');
-    }
+    try{ await apiCall('/api/progress', { method:'POST', body: JSON.stringify({ progress: state }) }); setSyncStatus('ok', 'Tersimpan di akun'); }
+    catch(e){ setSyncStatus('err', 'Gagal menyimpan'); }
   }, 500);
 }
-
 function setSyncStatus(kind, text){
-  const el = document.getElementById('acctActions');
-  let statusEl = document.getElementById('syncStatusEl');
+  const statusEl = document.getElementById('syncStatusEl');
   if (!statusEl) return;
   statusEl.className = 'sync-status' + (kind === 'err' ? ' err' : '');
   statusEl.innerHTML = `<span class="sync-dot" style="background:${kind==='err' ? 'var(--shu)' : 'var(--moss)'}"></span>${text}`;
 }
 
+/* ================= SRS (built-in, replaces Anki) ================= */
+const BOX_INTERVAL_MS = [0, 86400000, 3*86400000, 7*86400000, 21*86400000];
+function ensureSrsCard(char){ if(!state.srs[char]) state.srs[char] = { box:0, due: Date.now() }; }
+function getDueChars(){ const now = Date.now(); return Object.keys(state.srs).filter(c => state.srs[c].due <= now); }
+function gradeSrsCard(char, correct){
+  const card = state.srs[char]; if(!card) return;
+  if(correct){ card.box = Math.min(card.box+1, 4); card.due = Date.now() + BOX_INTERVAL_MS[card.box]; }
+  else { card.box = 0; card.due = Date.now(); }
+}
+function renderSrs(){
+  document.getElementById('srsDueCount').textContent = getDueChars().length;
+}
+document.getElementById('srsStartBtn').addEventListener('click', () => {
+  const due = getDueChars();
+  if(due.length === 0){ alert('Tidak ada kartu jatuh tempo hari ini — bagus, lanjut ke tugas hari berikutnya.'); return; }
+  openTrainer(due, 'Ulasan Harian', 0, true);
+});
+
 /* ================= RENDER ================= */
 function renderAcctBar(){
   const el = document.getElementById('acctActions');
   if (username){
-    el.innerHTML = `
-      <span class="sync-status" id="syncStatusEl"><span class="sync-dot"></span>Masuk sebagai ${username}</span>
-      <button id="btnLogout">Keluar</button>
-    `;
+    el.innerHTML = `<span class="sync-status" id="syncStatusEl"><span class="sync-dot"></span>Masuk sebagai ${username}</span><button id="btnLogout">Keluar</button>`;
     document.getElementById('btnLogout').addEventListener('click', logout);
   } else {
-    el.innerHTML = `
-      <button id="btnLogin">Masuk</button>
-      <button class="primary" id="btnSignup">Buat Akun</button>
-    `;
+    el.innerHTML = `<button id="btnLogin">Masuk</button><button class="primary" id="btnSignup">Buat Akun</button>`;
     document.getElementById('btnLogin').addEventListener('click', () => openModal('login'));
     document.getElementById('btnSignup').addEventListener('click', () => openModal('signup'));
   }
 }
-
 function renderKanaProgress(){
   const el = document.getElementById('kanaProgress');
   const all = [...HIRAGANA_BASE, ...HIRAGANA_MOD, ...KATAKANA_ALL];
@@ -477,134 +422,180 @@ function renderKanaProgress(){
   el.innerHTML = all.map(c => `<div class="kchar ${unlocked.has(c)?'on':''}">${c}</div>`).join('');
   document.getElementById('progressLabel').textContent = `${unlocked.size} / ${all.length} kana terbuka`;
 }
-
 function renderDays(){
   const el = document.getElementById('dayList');
   el.innerHTML = DAYS.map(d => `
     <div class="day-card" id="day-${d.n}">
       <div class="day-head">
-        <div>
-          <div class="day-num">HARI ${d.n} / 7</div>
-          <h3>${d.title}</h3>
-          <div class="day-scope">${d.scope}</div>
-        </div>
+        <div><div class="day-num">HARI ${d.n} / 7</div><h3>${d.title}</h3><div class="day-scope">${d.scope}</div></div>
         <button class="stamp-btn ${state[d.n] ? 'done' : ''}" data-day="${d.n}" aria-label="Tandai hari ${d.n} selesai"></button>
       </div>
       <div class="day-body">
-        <div><span class="time-chip">${d.time}</span></div>
+        <div><span class="time-chip">${d.time}</span><span class="yt-chip">YouTube opsional: pelengkap dengar</span></div>
         <div class="day-block task"><span class="k">Tugas</span><p>${d.task}</p></div>
         <div class="day-block criterion"><span class="k">Berhasil kalau</span><p>${d.criterion}</p></div>
         <div class="day-block avoid"><span class="k">Jangan, hari ini</span><ul>${d.avoid.map(a => `<li>${a}</li>`).join('')}</ul></div>
-        <div class="day-block"><span class="k">Pakai</span><div class="resources">${d.links.map(l => `<a href="${l.u}" target="_blank" rel="noopener">${l.t} ↗</a>`).join('')}</div></div>
+        <button class="trainer-launch" data-launch="${d.n}">Buka Pelatih Kana — Hari ${d.n} ↳</button>
       </div>
     </div>
   `).join('');
-
   el.querySelectorAll('.stamp-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const day = btn.dataset.day;
+      const wasOff = !state[day];
       state[day] = !state[day];
+      if (wasOff && state[day]){
+        const d = DAYS.find(x => String(x.n) === String(day));
+        d.unlocks.forEach(c => ensureSrsCard(c));
+      }
       saveLocalState(state);
       btn.classList.toggle('done');
       renderKanaProgress();
+      renderSrs();
       pushProgressToAccount();
     });
   });
+  el.querySelectorAll('[data-launch]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const d = DAYS.find(x => String(x.n) === btn.dataset.launch);
+      openTrainer(d.practice, `Hari ${d.n} — ${d.title}`, d.threshold);
+    });
+  });
 }
-
 function renderPhases(){
   document.getElementById('phaseList').innerHTML = PHASES.map(p => `
-    <div class="phase">
-      <div class="p-when">${p.when}</div>
-      <h4>${p.title}</h4>
-      <p>${p.desc}</p>
-      <div class="target">${p.target}</div>
-    </div>
+    <div class="phase"><div class="p-when">${p.when}</div><h4>${p.title}</h4><p>${p.desc}</p><div class="target">${p.target}</div></div>
   `).join('');
 }
+function renderAll(){ renderAcctBar(); renderKanaProgress(); renderDays(); renderSrs(); }
 
-function renderLinks(){
-  document.getElementById('linkGrid').innerHTML = RESOURCES.map(r => `<a href="${r.u}" target="_blank" rel="noopener">${r.t} <span>↗</span></a>`).join('');
-}
-
-function renderAll(){
-  renderAcctBar();
-  renderKanaProgress();
-  renderDays();
-}
-
-/* ================= MODAL / AUTH ================= */
+/* ================= AUTH MODAL ================= */
 let modalMode = 'login';
-
 function openModal(mode){
   modalMode = mode;
   document.getElementById('modalTitle').textContent = mode === 'login' ? 'Masuk ke Akun' : 'Buat Akun Baru';
-  document.getElementById('modalSub').textContent = mode === 'login'
-    ? 'Progres kamu akan diambil dari akun ini.'
-    : 'Progres yang sudah kamu tandai di perangkat ini akan tersimpan ke akun baru.';
+  document.getElementById('modalSub').textContent = mode === 'login' ? 'Progres kamu akan diambil dari akun ini.' : 'Progres di perangkat ini akan tersimpan ke akun baru.';
   document.getElementById('modalSubmit').textContent = mode === 'login' ? 'Masuk' : 'Buat Akun';
   document.getElementById('modalSwitchText').textContent = mode === 'login' ? 'Belum punya akun?' : 'Sudah punya akun?';
   document.getElementById('modalSwitchBtn').textContent = mode === 'login' ? 'Buat akun' : 'Masuk';
-  document.getElementById('modalMsg').textContent = '';
-  document.getElementById('modalMsg').className = 'modal-msg';
-  document.getElementById('inputUsername').value = '';
-  document.getElementById('inputPassword').value = '';
+  document.getElementById('modalMsg').textContent = ''; document.getElementById('modalMsg').className = 'modal-msg';
+  document.getElementById('inputUsername').value = ''; document.getElementById('inputPassword').value = '';
   document.getElementById('modalOverlay').classList.add('open');
   document.getElementById('inputUsername').focus();
 }
 function closeModal(){ document.getElementById('modalOverlay').classList.remove('open'); }
-
 document.getElementById('modalClose').addEventListener('click', closeModal);
 document.getElementById('modalOverlay').addEventListener('click', (e) => { if(e.target.id === 'modalOverlay') closeModal(); });
 document.getElementById('modalSwitchBtn').addEventListener('click', () => openModal(modalMode === 'login' ? 'signup' : 'login'));
-
 document.getElementById('modalSubmit').addEventListener('click', async () => {
   const u = document.getElementById('inputUsername').value.trim();
   const p = document.getElementById('inputPassword').value;
   const msgEl = document.getElementById('modalMsg');
   const btn = document.getElementById('modalSubmit');
-  msgEl.textContent = '';
-  msgEl.className = 'modal-msg';
+  msgEl.textContent = ''; msgEl.className = 'modal-msg';
   if (!u || !p){ msgEl.textContent = 'Isi username dan password.'; msgEl.className = 'modal-msg err'; return; }
-  btn.disabled = true;
-  btn.textContent = 'Memproses…';
+  btn.disabled = true; btn.textContent = 'Memproses…';
   try{
     const endpoint = modalMode === 'login' ? '/api/login' : '/api/signup';
     const data = await apiCall(endpoint, { method:'POST', body: JSON.stringify({ username: u, password: p }) });
-    token = data.token;
-    username = data.username;
-    localStorage.setItem(TOKEN_KEY, token);
-    localStorage.setItem(USER_KEY, username);
-    closeModal();
-    renderAcctBar();
-    if (modalMode === 'signup'){
-      // push whatever progress exists locally into the fresh account
-      pushProgressToAccount();
-    } else {
-      await pullProgressFromAccount();
-    }
-  }catch(e){
-    msgEl.textContent = e.message || 'Gagal, coba lagi.';
-    msgEl.className = 'modal-msg err';
-  }finally{
-    btn.disabled = false;
-    btn.textContent = modalMode === 'login' ? 'Masuk' : 'Buat Akun';
-  }
+    token = data.token; username = data.username;
+    localStorage.setItem(TOKEN_KEY, token); localStorage.setItem(USER_KEY, username);
+    closeModal(); renderAcctBar();
+    if (modalMode === 'signup'){ pushProgressToAccount(); } else { await pullProgressFromAccount(); }
+  }catch(e){ msgEl.textContent = e.message || 'Gagal, coba lagi.'; msgEl.className = 'modal-msg err'; }
+  finally{ btn.disabled = false; btn.textContent = modalMode === 'login' ? 'Masuk' : 'Buat Akun'; }
 });
+function logout(){ token=null; username=null; localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(USER_KEY); renderAcctBar(); }
 
-function logout(){
-  token = null; username = null;
-  localStorage.removeItem(TOKEN_KEY);
-  localStorage.removeItem(USER_KEY);
-  renderAcctBar();
+/* ================= TRAINER ================= */
+let trainerState = null;
+function shuffleSample(arr, n){
+  let out=[], prev=null;
+  for(let i=0;i<n;i++){ let c; do{ c = arr[Math.floor(Math.random()*arr.length)]; } while(c===prev && arr.length>1); out.push(c); prev=c; }
+  return out;
 }
+function openTrainer(chars, label, threshold, reviewMode){
+  reviewMode = !!reviewMode;
+  const roundSize = reviewMode ? chars.length : 20;
+  trainerState = { chars, label, threshold: threshold||90, reviewMode, pool: shuffleSample(chars, Math.max(roundSize,1)), idx:0, correct:0, startTime:Date.now(), history: trainerState && trainerState.chars===chars ? trainerState.history : [] };
+  document.getElementById('trainerTitle').textContent = label + (reviewMode ? ' (mode ulasan — dijawab satu kali per kartu)' : '');
+  document.getElementById('trainerQuizArea').style.display='block';
+  document.getElementById('trainerResult').style.display='none';
+  document.getElementById('trainerOverlay').classList.add('open');
+  showQuestion();
+}
+function showQuestion(){
+  if(trainerState.idx >= trainerState.pool.length){ finishRound(); return; }
+  const char = trainerState.pool[trainerState.idx];
+  document.getElementById('trainerCharDisplay').textContent = char;
+  document.getElementById('trainerInput').value='';
+  document.getElementById('trainerFeedback').textContent=''; document.getElementById('trainerFeedback').className='trainer-feedback';
+  document.getElementById('trainerProgress').textContent = `Soal ${trainerState.idx+1} / ${trainerState.pool.length}`;
+  document.getElementById('trainerInput').focus();
+}
+function submitAnswer(){
+  if(!trainerState || trainerState.idx >= trainerState.pool.length) return;
+  const char = trainerState.pool[trainerState.idx];
+  const romaji = ROMAJI_MAP[char];
+  const accepted = acceptableAnswers(romaji);
+  const val = document.getElementById('trainerInput').value.trim().toLowerCase();
+  const fb = document.getElementById('trainerFeedback');
+  const isCorrect = accepted.includes(val);
+  if(isCorrect){ trainerState.correct++; fb.textContent='Benar ✓'; fb.className='trainer-feedback ok'; }
+  else { fb.textContent = `Salah — jawaban: ${romaji}`; fb.className='trainer-feedback err'; }
+  if(trainerState.reviewMode) gradeSrsCard(char, isCorrect);
+  document.getElementById('trainerScoreLive').textContent = `Benar: ${trainerState.correct}/${trainerState.idx+1}`;
+  trainerState.idx++;
+  setTimeout(showQuestion, isCorrect ? 300 : 800);
+}
+function computeStreak(history){ let s=0; for(let i=history.length-1;i>=0;i--){ if(history[i]) s++; else break; } return s; }
+function finishRound(){
+  const total = trainerState.pool.length;
+  const accuracy = Math.round((trainerState.correct/total)*100);
+  const seconds = (Date.now()-trainerState.startTime)/1000;
+  const avgSec = (seconds/total).toFixed(1);
+  document.getElementById('trainerQuizArea').style.display='none';
+  const resultEl = document.getElementById('trainerResult');
+  resultEl.style.display='block';
 
+  if(trainerState.reviewMode){
+    saveLocalState(state); renderSrs(); pushProgressToAccount();
+    resultEl.innerHTML = `
+      <div class="trainer-result-badge pass">ULASAN SELESAI</div>
+      <div class="trainer-result-stat">Benar: <b>${trainerState.correct}/${total}</b></div>
+      <div class="trainer-result-stat">Kartu yang salah otomatis dijadwalkan muncul lagi hari ini juga.</div>
+      <div class="trainer-result-actions"><button class="primary" id="trainerCloseBtn">Tutup</button></div>
+    `;
+  } else {
+    const passed = accuracy >= trainerState.threshold;
+    trainerState.history.push(passed);
+    const streak = computeStreak(trainerState.history);
+    resultEl.innerHTML = `
+      <div class="trainer-result-badge ${passed?'pass':'fail'}">${passed? 'LULUS RONDE INI':'BELUM LULUS'}</div>
+      <div class="trainer-result-stat">Akurasi: <b>${accuracy}%</b> (ambang: ${trainerState.threshold}%)</div>
+      <div class="trainer-result-stat">Rata-rata waktu: <b>${avgSec} detik/huruf</b></div>
+      <div class="trainer-result-stat">Ronde lulus berturut-turut: <b>${streak}/3</b></div>
+      ${streak>=3 ? '<div class="trainer-result-note ok">Kriteria hari ini tercapai — tutup lalu tekan cap ✓ di kartu harinya.</div>' : '<div class="trainer-result-note">Lanjutkan ronde baru sampai 3 ronde lulus berturut-turut.</div>'}
+      <div class="trainer-result-actions">
+        <button id="trainerAgainBtn">Ronde Baru</button>
+        <button class="primary" id="trainerCloseBtn">Tutup</button>
+      </div>
+    `;
+    document.getElementById('trainerAgainBtn').addEventListener('click', () => openTrainer(trainerState.chars, trainerState.label, trainerState.threshold, false));
+  }
+  document.getElementById('trainerCloseBtn').addEventListener('click', closeTrainer);
+}
+function closeTrainer(){ document.getElementById('trainerOverlay').classList.remove('open'); }
+document.getElementById('trainerClose').addEventListener('click', closeTrainer);
+document.getElementById('trainerSubmit').addEventListener('click', submitAnswer);
+document.getElementById('trainerInput').addEventListener('keydown', (e) => { if(e.key === 'Enter') submitAnswer(); });
+
+/* ================= RESET ================= */
 document.getElementById('resetBtn').addEventListener('click', () => {
-  if(confirm('Hapus semua cap dan progres kana? Ini juga akan menghapus progres di akunmu kalau sedang masuk.')){
-    state = {};
+  if(confirm('Hapus semua cap, progres kana, dan jadwal ulasan? Ini juga menghapus progres di akunmu kalau sedang masuk.')){
+    state = { srs:{} };
     saveLocalState(state);
-    renderKanaProgress();
-    renderDays();
+    renderAll();
     pushProgressToAccount();
   }
 });
@@ -612,7 +603,6 @@ document.getElementById('resetBtn').addEventListener('click', () => {
 /* ================= INIT ================= */
 renderAll();
 renderPhases();
-renderLinks();
 if (token) pullProgressFromAccount();
 </script>
 </body>
