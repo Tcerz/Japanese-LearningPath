@@ -144,6 +144,15 @@
   .trainer-result-actions{ display:flex; gap:10px; margin-top:20px; }
   .trainer-result-actions button{ flex:1; padding:12px; font-family:'JetBrains Mono',monospace; font-size:12.5px; cursor:pointer; border:1px solid var(--line); background:none; color:var(--sumi); }
   .trainer-result-actions button.primary{ background:var(--aizome); color:#fff; border-color:var(--aizome); }
+  .study-intro{ font-size:13.5px; color:var(--muted); margin:0 0 16px; }
+  .study-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(64px,1fr)); gap:8px; max-height:340px; overflow-y:auto; padding-right:4px; }
+  .study-cell{ border:1px solid var(--line); background:var(--washi); padding:10px 4px; text-align:center; }
+  .study-char{ font-family:'Noto Sans JP',sans-serif; font-size:26px; }
+  .study-romaji{ font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--aizome-deep); margin-top:4px; }
+  .study-meaning{ font-size:9.5px; color:var(--muted); margin-top:2px; line-height:1.2; }
+  .peek-link{ display:block; text-align:center; margin-top:10px; font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--aizome); background:none; border:none; cursor:pointer; text-decoration:underline; }
+  .day-card.locked{ opacity:0.5; }
+  .day-card.locked .day-scope{ color:var(--shu); }
 
   @media (max-width:640px){
     header.hero{ padding:44px 0; }
@@ -173,7 +182,7 @@
       <div class="hero-fact"><div class="n">N5+N4</div><div class="l">target ganda, 6 bulan</div></div>
     </div>
     <div class="note"><b>Perhitungan jujur:</b> 45 menit/hari selama 6 bulan ≈ 230 jam. N5 biasanya butuh 100–150 jam, N4 butuh tambahan 150–250 jam. 230 jam nyaman untuk N5, ketat untuk N4 — peta jalan di bawah menandai bulan ke berapa waktu harianmu perlu bertambah.</div>
-    <div class="note moss"><b>Semua di dalam situs ini:</b> pelatih kana dan sistem ulasan di bawah ini kode asli, bukan tautan ke aplikasi lain — tidak ada yang perlu diunduh. Video YouTube tetap boleh dipakai sebagai pelengkap latihan mendengar, itu satu-satunya sumber luar yang disebut di sini.</div>
+    <div class="note moss"><b>Semua di dalam situs ini:</b> pelatih kana, 5 level kosakata lanjutan, dan sistem ulasan di bawah ini kode asli, bukan tautan ke aplikasi lain — tidak ada yang perlu diunduh. Video YouTube tetap boleh dipakai sebagai pelengkap latihan mendengar, itu satu-satunya sumber luar yang disebut di sini.</div>
   </header>
 
   <section id="progress-section">
@@ -208,6 +217,15 @@
       <p>Kerjakan tugasnya lewat pelatih kana bawaan di tiap kartu, jalankan sampai lulus kriteria, baru cap harinya. Kalau belum lulus, ulangi hari yang sama besok, jangan lanjut dulu.</p>
     </div>
     <div id="dayList"></div>
+  </section>
+
+  <section id="levels">
+    <div class="section-head">
+      <div class="eyebrow">Setelah 7 hari</div>
+      <h2>Level lanjutan: kosakata, makin lama makin susah</h2>
+      <p>Lima level, urut dari kata paling pendek sampai frasa sehari-hari. Level 1 terbuka setelah Hari 7 lulus, dan tiap level berikutnya terkunci sampai level sebelumnya kamu tandai selesai — jadi kesulitannya memang sengaja dinaikkan bertahap, bukan lompat.</p>
+    </div>
+    <div id="levelList"></div>
   </section>
 
   <section id="roadmap">
@@ -252,6 +270,8 @@
     <button class="trainer-close" id="trainerClose">✕</button>
     <div class="trainer-title" id="trainerTitle">Pelatih Kana</div>
 
+    <div id="trainerStudyArea" style="display:none;"></div>
+
     <div id="trainerQuizArea">
       <div class="trainer-char" id="trainerCharDisplay">あ</div>
       <div class="trainer-progress" id="trainerProgress">Soal 1 / 20</div>
@@ -261,6 +281,7 @@
       </div>
       <div class="trainer-feedback" id="trainerFeedback"></div>
       <div class="trainer-score-live" id="trainerScoreLive">Benar: 0/0</div>
+      <button class="peek-link" id="trainerPeekBtn">↩ Lihat daftar huruf lagi</button>
     </div>
 
     <div id="trainerResult" style="display:none;"></div>
@@ -282,6 +303,77 @@ const ROMAJI_MAP = { ...zip(HIRAGANA_BASE, ROMAJI_BASE), ...zip(HIRAGANA_MOD, RO
 
 const ALT_BY_ROMAJI = { shi:["si"], chi:["ti"], tsu:["tu"], fu:["hu"], ji:["zi","di"], zu:["du"], sha:["sya"], shu:["syu"], sho:["syo"], cha:["tya"], chu:["tyu"], cho:["tyo"], n:["nn"] };
 function acceptableAnswers(r){ return [r, ...(ALT_BY_ROMAJI[r]||[])]; }
+
+/* ================= VOCAB LEVELS (lanjutan setelah hari 7) ================= */
+const VOCAB_LEVELS = [
+  { id:1, title:"Level 1 — Kosakata 2 Suku Kata", desc:"Kata benda paling pendek dan paling sering dipakai sehari-hari. Kalau kana minggu lalu sudah lancar, ini terasa seperti menyusun huruf yang sudah kamu kenal.", threshold:90,
+    words:[
+      {kana:"うみ", romaji:"umi", meaning:"laut"},
+      {kana:"やま", romaji:"yama", meaning:"gunung"},
+      {kana:"そら", romaji:"sora", meaning:"langit"},
+      {kana:"はな", romaji:"hana", meaning:"bunga"},
+      {kana:"みず", romaji:"mizu", meaning:"air"},
+      {kana:"いぬ", romaji:"inu", meaning:"anjing"},
+      {kana:"ねこ", romaji:"neko", meaning:"kucing"},
+      {kana:"ひと", romaji:"hito", meaning:"orang"},
+      {kana:"あさ", romaji:"asa", meaning:"pagi"},
+      {kana:"くつ", romaji:"kutsu", meaning:"sepatu"}
+    ]},
+  { id:2, title:"Level 2 — Kosakata 3 Suku Kata", desc:"Kata benda sedikit lebih panjang. Baca per suku kata seperti biasa — jangan hafal bentuk utuhnya sekaligus, pecah dulu jadi kana per kana.", threshold:85,
+    words:[
+      {kana:"さかな", romaji:"sakana", meaning:"ikan"},
+      {kana:"たまご", romaji:"tamago", meaning:"telur"},
+      {kana:"りんご", romaji:"ringo", meaning:"apel"},
+      {kana:"でんわ", romaji:"denwa", meaning:"telepon"},
+      {kana:"くるま", romaji:"kuruma", meaning:"mobil"},
+      {kana:"あたま", romaji:"atama", meaning:"kepala"},
+      {kana:"からだ", romaji:"karada", meaning:"badan"},
+      {kana:"さいふ", romaji:"saifu", meaning:"dompet"},
+      {kana:"とけい", romaji:"tokei", meaning:"jam"},
+      {kana:"でんしゃ", romaji:"densha", meaning:"kereta"}
+    ]},
+  { id:3, title:"Level 3 — Kata Kerja Dasar", desc:"Kata kerja bentuk kamus (belum bentuk sopan -masu). Ini gerbang pertama ke tata bahasa, bukan sekadar kosakata lagi.", threshold:85,
+    words:[
+      {kana:"たべる", romaji:"taberu", meaning:"makan"},
+      {kana:"のむ", romaji:"nomu", meaning:"minum"},
+      {kana:"いく", romaji:"iku", meaning:"pergi"},
+      {kana:"くる", romaji:"kuru", meaning:"datang"},
+      {kana:"みる", romaji:"miru", meaning:"melihat"},
+      {kana:"きく", romaji:"kiku", meaning:"mendengar / bertanya"},
+      {kana:"はなす", romaji:"hanasu", meaning:"berbicara"},
+      {kana:"かう", romaji:"kau", meaning:"membeli"},
+      {kana:"よむ", romaji:"yomu", meaning:"membaca"},
+      {kana:"かく", romaji:"kaku", meaning:"menulis"}
+    ]},
+  { id:4, title:"Level 4 — Kata Sifat", desc:"Kata sifat berakhiran -i, salah satu pola paling sering muncul di kalimat N5. Perhatikan huruf い di ujung tiap kata.", threshold:80,
+    words:[
+      {kana:"おおきい", romaji:"ookii", meaning:"besar"},
+      {kana:"ちいさい", romaji:"chiisai", meaning:"kecil"},
+      {kana:"あたらしい", romaji:"atarashii", meaning:"baru"},
+      {kana:"ふるい", romaji:"furui", meaning:"lama / tua"},
+      {kana:"たかい", romaji:"takai", meaning:"tinggi / mahal"},
+      {kana:"やすい", romaji:"yasui", meaning:"murah"},
+      {kana:"むずかしい", romaji:"muzukashii", meaning:"sulit"},
+      {kana:"やさしい", romaji:"yasashii", meaning:"mudah / baik hati"},
+      {kana:"あかるい", romaji:"akarui", meaning:"terang"},
+      {kana:"くらい", romaji:"kurai", meaning:"gelap"}
+    ]},
+  { id:5, title:"Level 5 — Frasa Sehari-hari", desc:"Ungkapan yang langsung kepakai dalam percakapan nyata — level tersulit minggu ini. Perhatikan は yang dibaca 'wa', bukan 'ha', di beberapa frasa.", threshold:80,
+    words:[
+      {kana:"おはよう", romaji:"ohayou", meaning:"selamat pagi"},
+      {kana:"こんにちは", romaji:"konnichiwa", meaning:"selamat siang"},
+      {kana:"こんばんは", romaji:"konbanwa", meaning:"selamat malam"},
+      {kana:"ありがとう", romaji:"arigatou", meaning:"terima kasih"},
+      {kana:"すみません", romaji:"sumimasen", meaning:"maaf / permisi"},
+      {kana:"さようなら", romaji:"sayounara", meaning:"selamat tinggal"},
+      {kana:"おやすみ", romaji:"oyasumi", meaning:"selamat tidur"},
+      {kana:"いただきます", romaji:"itadakimasu", meaning:"(ucapan sebelum makan)"},
+      {kana:"ごちそうさま", romaji:"gochisousama", meaning:"(ucapan sesudah makan)"},
+      {kana:"はじめまして", romaji:"hajimemashite", meaning:"salam kenal"}
+    ]}
+];
+const VOCAB_MEANING = {};
+VOCAB_LEVELS.forEach(lvl => lvl.words.forEach(w => { ROMAJI_MAP[w.kana] = w.romaji; VOCAB_MEANING[w.kana] = w.meaning; }));
 
 /* ================= DAY CONTENT ================= */
 const DAYS = [
@@ -342,7 +434,7 @@ const PHASES = [
 const STORAGE_KEY = "kana-bootcamp-progress";
 const TOKEN_KEY = "kana-auth-token";
 const USER_KEY = "kana-auth-username";
-function loadLocalState(){ try{ const s = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; if(!s.srs) s.srs = {}; return s; }catch(e){ return {srs:{}}; } }
+function loadLocalState(){ try{ const s = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; if(!s.srs) s.srs = {}; if(!s.levels) s.levels = {}; return s; }catch(e){ return {srs:{}, levels:{}}; } }
 function saveLocalState(s){ localStorage.setItem(STORAGE_KEY, JSON.stringify(s)); }
 
 let state = loadLocalState();
@@ -363,7 +455,7 @@ async function pullProgressFromAccount(){
   if (!token) return;
   try{
     const data = await apiCall('/api/progress');
-    if (data.progress && Object.keys(data.progress).length){ state = data.progress; if(!state.srs) state.srs={}; saveLocalState(state); }
+    if (data.progress && Object.keys(data.progress).length){ state = data.progress; if(!state.srs) state.srs={}; if(!state.levels) state.levels={}; saveLocalState(state); }
     setSyncStatus('ok', 'Tersinkron ke akun');
     renderAll();
   }catch(e){ setSyncStatus('err', 'Gagal sinkron'); }
@@ -452,6 +544,7 @@ function renderDays(){
       btn.classList.toggle('done');
       renderKanaProgress();
       renderSrs();
+      renderLevels();
       pushProgressToAccount();
     });
   });
@@ -467,7 +560,52 @@ function renderPhases(){
     <div class="phase"><div class="p-when">${p.when}</div><h4>${p.title}</h4><p>${p.desc}</p><div class="target">${p.target}</div></div>
   `).join('');
 }
-function renderAll(){ renderAcctBar(); renderKanaProgress(); renderDays(); renderSrs(); }
+function isLevelUnlocked(lvl){
+  if (lvl.id === 1) return !!state[7];
+  return !!(state.levels && state.levels[lvl.id - 1]);
+}
+function renderLevels(){
+  const el = document.getElementById('levelList');
+  el.innerHTML = VOCAB_LEVELS.map(lvl => {
+    const unlocked = isLevelUnlocked(lvl);
+    const done = !!(state.levels && state.levels[lvl.id]);
+    return `
+    <div class="day-card ${unlocked ? '' : 'locked'}" id="level-${lvl.id}">
+      <div class="day-head">
+        <div>
+          <div class="day-num">${unlocked ? (done ? 'SELESAI' : 'TERBUKA') : 'TERKUNCI'}</div>
+          <h3>${lvl.title}</h3>
+          <div class="day-scope">${lvl.words.length} kosakata · ambang lulus ${lvl.threshold}%</div>
+        </div>
+        <button class="stamp-btn ${done ? 'done' : ''}" data-level="${lvl.id}" ${unlocked ? '' : 'disabled'} aria-label="Tandai level ${lvl.id} selesai"></button>
+      </div>
+      <div class="day-body">
+        <div class="day-block task"><span class="k">Tentang level ini</span><p>${lvl.desc}</p></div>
+        ${unlocked
+          ? `<button class="trainer-launch" data-vocab-launch="${lvl.id}">Buka Pelatih Kosakata — Level ${lvl.id} ↳</button>`
+          : `<p style="font-size:13px;color:var(--muted);margin:0;">Selesaikan ${lvl.id === 1 ? 'Hari 7' : 'Level ' + (lvl.id - 1)} dulu untuk membuka level ini.</p>`}
+      </div>
+    </div>`;
+  }).join('');
+
+  el.querySelectorAll('[data-level]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.level;
+      if (!state.levels) state.levels = {};
+      state.levels[id] = !state.levels[id];
+      saveLocalState(state);
+      renderLevels();
+      pushProgressToAccount();
+    });
+  });
+  el.querySelectorAll('[data-vocab-launch]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const lvl = VOCAB_LEVELS.find(l => String(l.id) === btn.dataset.vocabLaunch);
+      openTrainer(lvl.words.map(w => w.kana), lvl.title, lvl.threshold);
+    });
+  });
+}
+function renderAll(){ renderAcctBar(); renderKanaProgress(); renderDays(); renderSrs(); renderLevels(); }
 
 /* ================= AUTH MODAL ================= */
 let modalMode = 'login';
@@ -519,15 +657,38 @@ function openTrainer(chars, label, threshold, reviewMode){
   const roundSize = reviewMode ? chars.length : 20;
   trainerState = { chars, label, threshold: threshold||90, reviewMode, pool: shuffleSample(chars, Math.max(roundSize,1)), idx:0, correct:0, startTime:Date.now(), history: trainerState && trainerState.chars===chars ? trainerState.history : [] };
   document.getElementById('trainerTitle').textContent = label + (reviewMode ? ' (mode ulasan — dijawab satu kali per kartu)' : '');
-  document.getElementById('trainerQuizArea').style.display='block';
   document.getElementById('trainerResult').style.display='none';
   document.getElementById('trainerOverlay').classList.add('open');
-  showQuestion();
+  if(reviewMode){
+    document.getElementById('trainerStudyArea').style.display='none';
+    document.getElementById('trainerQuizArea').style.display='block';
+    showQuestion();
+  } else {
+    showStudyArea();
+  }
+}
+function showStudyArea(){
+  document.getElementById('trainerQuizArea').style.display='none';
+  const area = document.getElementById('trainerStudyArea');
+  area.style.display='block';
+  const uniqueChars = [...new Set(trainerState.chars)];
+  area.innerHTML = `
+    <p class="study-intro">Belum kenal huruf-huruf ini? Wajar — lihat dulu satu per satu di bawah beserta cara bacanya. Tidak perlu hafal sempurna dulu; kuis setelah ini justru caranya menghafal. Klik "Mulai Kuis" kapan pun kamu siap, dan bisa kembali ke daftar ini kapan saja lewat tombol di layar kuis.</p>
+    <div class="study-grid">${uniqueChars.map(c=>`<div class="study-cell"><div class="study-char">${c}</div><div class="study-romaji">${ROMAJI_MAP[c]}</div>${VOCAB_MEANING[c] ? `<div class="study-meaning">${VOCAB_MEANING[c]}</div>` : ''}</div>`).join('')}</div>
+    <button class="primary" id="trainerStartQuizBtn" style="margin-top:18px;width:100%;padding:13px;font-family:'JetBrains Mono',monospace;border:none;cursor:pointer;">Mulai Kuis →</button>
+  `;
+  document.getElementById('trainerStartQuizBtn').addEventListener('click', () => {
+    area.style.display='none';
+    document.getElementById('trainerQuizArea').style.display='block';
+    showQuestion();
+  });
 }
 function showQuestion(){
   if(trainerState.idx >= trainerState.pool.length){ finishRound(); return; }
   const char = trainerState.pool[trainerState.idx];
-  document.getElementById('trainerCharDisplay').textContent = char;
+  const displayEl = document.getElementById('trainerCharDisplay');
+  displayEl.textContent = char;
+  displayEl.style.fontSize = char.length <= 2 ? '' : (char.length <= 4 ? '52px' : '38px');
   document.getElementById('trainerInput').value='';
   document.getElementById('trainerFeedback').textContent=''; document.getElementById('trainerFeedback').className='trainer-feedback';
   document.getElementById('trainerProgress').textContent = `Soal ${trainerState.idx+1} / ${trainerState.pool.length}`;
@@ -541,8 +702,8 @@ function submitAnswer(){
   const val = document.getElementById('trainerInput').value.trim().toLowerCase();
   const fb = document.getElementById('trainerFeedback');
   const isCorrect = accepted.includes(val);
-  if(isCorrect){ trainerState.correct++; fb.textContent='Benar ✓'; fb.className='trainer-feedback ok'; }
-  else { fb.textContent = `Salah — jawaban: ${romaji}`; fb.className='trainer-feedback err'; }
+  if(isCorrect){ trainerState.correct++; fb.textContent='Benar ✓' + (VOCAB_MEANING[char] ? ` — ${VOCAB_MEANING[char]}` : ''); fb.className='trainer-feedback ok'; }
+  else { fb.textContent = `Salah — jawaban: ${romaji}` + (VOCAB_MEANING[char] ? ` (${VOCAB_MEANING[char]})` : ''); fb.className='trainer-feedback err'; }
   if(trainerState.reviewMode) gradeSrsCard(char, isCorrect);
   document.getElementById('trainerScoreLive').textContent = `Benar: ${trainerState.correct}/${trainerState.idx+1}`;
   trainerState.idx++;
@@ -589,6 +750,10 @@ function closeTrainer(){ document.getElementById('trainerOverlay').classList.rem
 document.getElementById('trainerClose').addEventListener('click', closeTrainer);
 document.getElementById('trainerSubmit').addEventListener('click', submitAnswer);
 document.getElementById('trainerInput').addEventListener('keydown', (e) => { if(e.key === 'Enter') submitAnswer(); });
+document.getElementById('trainerPeekBtn').addEventListener('click', () => {
+  showStudyArea();
+  document.getElementById('trainerStartQuizBtn').textContent = 'Lanjutkan Kuis →';
+});
 
 /* ================= RESET ================= */
 document.getElementById('resetBtn').addEventListener('click', () => {
